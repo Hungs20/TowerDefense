@@ -91,12 +91,12 @@ public abstract class Enemy extends GameEntity {
         iv.setRotate(this.direction.getDegree());
         Image base = iv.snapshot(params, null);
 
-        /*ImageView iv2 = new ImageView(gunImg);
+        ImageView iv2 = new ImageView(gunImg);
         iv2.setRotate(this.direction.getDegree());
-        Image gun = iv2.snapshot(params, null);*/
+        Image gun = iv2.snapshot(params, null);
 
         gc.drawImage(base, this.getX(), this.getY());
-        //gc.drawImage(gun, this.getX(), this.getY());
+        gc.drawImage(gun, this.getX(), this.getY());
 
         gc.setFill(Color.RED);
         gc.fillOval(wayPoints[wayPointIndex].getX(),wayPoints[wayPointIndex].getY(),10, 10);

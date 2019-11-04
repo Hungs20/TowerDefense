@@ -16,6 +16,16 @@ public class config {
             { "025", "023", "024", "024", "024", "024", "024", "024", "024", "024" },
     };
 
+    public static final String[][] MENU_SPRITES = new String[][]{
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+            {"267", "267", "267"},
+    };
+
     public static final Point[] wayPoints = new Point[] {
             new Point(0 * 64 + 32, 6 * 64 + 00),
             new Point(0 * 64 + 32, 3 * 64 + 32),
@@ -29,4 +39,14 @@ public class config {
     public static double distance(int x1, int y1, int x2, int y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
+
+     public static double getRadius(Point a, Point b){
+        Point n = new Point(-b.getY() + a.getY(), b.getX() - a.getX());
+        double k = (double)-n.getX()/(double)n.getY();
+        //System.out.println(a.toString() + b.toString() + " k = " + Math.toDegrees(Math.atan(k)));
+        System.out.println(k);
+
+        return  270-Math.toDegrees(Math.atan(k)) ;
+
+     }
 }

@@ -8,13 +8,17 @@ public class Bullet extends GameEntity {
     private Image gunImg;
     private int damage;
     private double speed;
-    private int maxDistance;
+    private double maxDistance;
 
     public Bullet(Image gunImg, int damage, double speed, int maxDistance) {
         this.gunImg = gunImg;
         this.damage = damage;
         this.speed = speed;
         this.maxDistance = maxDistance;
+    }
+
+    public Bullet() {
+
     }
 
     public Image getGunImg() {
@@ -41,11 +45,11 @@ public class Bullet extends GameEntity {
         this.speed = speed;
     }
 
-    public int getMaxDistance() {
+    public double getMaxDistance() {
         return maxDistance;
     }
 
-    public void setMaxDistance(int maxDistance) {
+    public void setMaxDistance(double maxDistance) {
         this.maxDistance = maxDistance;
     }
 
