@@ -11,17 +11,21 @@ public abstract class GameEntity {
     private int y;
     private Image img;
 
+
+
     public abstract void render(GraphicsContext gc);
     public abstract void update();
 
     // Tao hinh chu nhat bao quanh
-    public Rectangle2D getBoundary(){
+    public Rectangle2D getBoundary() throws NullPointerException{
+        if(this == null) throw new NullPointerException();
         return new Rectangle2D(x, y, img.getWidth(), img.getHeight());
     }
 
     ///kiem tra va cham
-    public boolean isCollision(GameEntity other){
-        return other.getBoundary().intersects(this.getBoundary());
+    public boolean isCollision(GameEntity other) throws NullPointerException {
+        Rectangle2D rectangle2D = getBoundary();
+        return false;//other.getBoundary().intersects(getBoundary());
     }
 
     public int getI() {

@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
+import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 
@@ -30,7 +31,7 @@ public class GameStage extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         stage.setTitle("Tower Defense");
         // Tao Canvas
-        Canvas canvas = new Canvas(TILE_SIZE * 13, TILE_SIZE * 7);
+        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
@@ -49,6 +50,7 @@ public class GameStage extends Application {
 
         GameField gameField = new GameField();
         gameField.setGc(gc);
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {

@@ -14,7 +14,7 @@ public abstract class Enemy extends GameEntity {
     private double speed;
     private Direction direction;
     private int health;
-    private double reward;
+    private int reward;
     private int armor;
     private Image gunImg;
     private int gunRotation;
@@ -43,11 +43,11 @@ public abstract class Enemy extends GameEntity {
         this.health = health;
     }
 
-    public double getReward() {
+    public int getReward() {
         return reward;
     }
 
-    public void setReward(double reward) {
+    public void setReward(int reward) {
         this.reward = reward;
     }
 

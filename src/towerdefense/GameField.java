@@ -3,8 +3,11 @@ package towerdefense;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
+import towerdefense.Entity.menu.ItemTower;
+import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 
@@ -18,7 +21,11 @@ public class GameField {
     private GraphicsContext gc;
 
 
-    public static List<GameEntity> gameEntities = new ArrayList<>();
+    public static List<GameEntity> enemyList = new ArrayList<>();
+    public static List<GameEntity> towerList = new ArrayList<>();
+    public static List<ItemTower> itemTowerList = new ArrayList<>();
+    public static List<GameEntity> bulletList = new ArrayList<>();
+
 
     public GraphicsContext getGc() {
         return gc;
@@ -29,9 +36,7 @@ public class GameField {
     }
 
 
-    public void setGameEntities(List<GameEntity> gameEntities) {
-        this.gameEntities = gameEntities;
-    }
+
 
     private void drawMap() {
         for (int i = 0; i < MAP_SPRITES.length; i++) {
@@ -42,47 +47,74 @@ public class GameField {
     }
 
     private void drawMenu(){
-        for(int i = 0; i < MENU_SPRITES.length; i++){
-            for(int j = 0; j < MENU_SPRITES[i].length; j++){
-                gc.drawImage(new Image(pathImg + "towerDefense_tile" + MENU_SPRITES[i][j] + ".png"), (j + 10) * TILE_SIZE, i * TILE_SIZE);
-            }
-        }
+        Menu menu = new Menu();
+        menu.createItemTower();
+        menu.showMenu(gc);
     }
 
     public void update() {
-        gameEntities.forEach(GameEntity::update);
+        for(int i = 0; i < bulletList.size(); i++){
+            boolean isCol = false;
+            for(int j = 0; j < enemyList.size(); j++){
+                GameEntity bullet = (Bullet)bulletList.get(i);
+                GameEntity enemy = (Enemy)enemyList.get(j);
+                if(bullet.isCollision(enemy)){
+                    ((Enemy) enemy).setHealth(((Enemy) enemy).getHealth() - ((Bullet) bullet).getDamage());
+                    if(((Enemy) enemy).getHealth() <= 0) enemyList.remove(j);
+                    bulletList.remove(i);
+                    isCol = true;
+                    break;
+                }
+            }
+            if(isCol == true) break;
+        }
+
+        bulletList.forEach(GameEntity::update);
+        for(int i = 0; i < bulletList.size(); i++) {
+            Bullet bullet = (Bullet) bulletList.get(i);
+            if(bullet.getDistance() > bullet.getMaxDistance()) bulletList.remove(i);
+        }
+        enemyList.forEach(GameEntity::update);
+        towerList.forEach(GameEntity::update);
     }
 
     public void render() {
         drawMap();
         drawMenu();
-        gameEntities.forEach(g -> g.render(gc));
+        bulletList.forEach(g -> g.render(gc));
+        enemyList.forEach(g -> g.render(gc));
+        towerList.forEach(g -> g.render(gc));
     }
 
-    public Enemy createEnemy() {
-        Enemy normalEnemy = new NormalEnemy();
-        normalEnemy.setI(0);
-        normalEnemy.setJ(6);
-        normalEnemy.setX(normalEnemy.getI() * TILE_SIZE + TILE_SIZE/2);
-        normalEnemy.setY(normalEnemy.getJ() * TILE_SIZE);
+    public Enemy createEnemy(int i, int j, Enemy _newEnemy) {
+        Enemy newEnemy = _newEnemy;
+        newEnemy.setI(i);
+        newEnemy.setJ(j);
+        newEnemy.setX(newEnemy.getI() * TILE_SIZE + TILE_SIZE/2);
+        newEnemy.setY(newEnemy.getJ() * TILE_SIZE);
 
-        return normalEnemy;
+        return newEnemy;
     }
 
-    public Tower createTower(){
-        Tower normalTower = new NormalTower();
-        normalTower.setI(3);
-        normalTower.setJ(5);
-        normalTower.setX(normalTower.getI() * TILE_SIZE + TILE_SIZE/2);
-        normalTower.setY(normalTower.getJ() * TILE_SIZE);
+    public Tower createTower(int i, int j, Tower _newTower){
+        Tower newTower = _newTower;
+        newTower.setI(i);
+        newTower.setJ(j);
+        newTower.setX(newTower.getI() * TILE_SIZE);
+        newTower.setY(newTower.getJ() * TILE_SIZE);
 
-        return normalTower;
+        return newTower;
     }
 
     public void addEnemy(){
-        gameEntities.add(createEnemy());
+        enemyList.add(createEnemy(0, 6, new NormalEnemy()));
+        enemyList.add(createEnemy(0, 10, new NormalEnemy()));
+        enemyList.add(createEnemy(0, 12, new NormalEnemy()));
+
+
     }
     public void addTower(){
-        gameEntities.add(createTower());
+        towerList.add(createTower(3,5, new NormalTower()));
+        towerList.add(createTower(7,6, new NormalTower()));
     }
 }
