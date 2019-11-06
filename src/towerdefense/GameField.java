@@ -53,14 +53,14 @@ public class GameField {
     }
 
     public void update() {
-        for(int i = 0; i < bulletList.size(); i++){
+        /*for(int i = 0; i < bulletList.size(); i++){
             boolean isCol = false;
             for(int j = 0; j < enemyList.size(); j++){
-                GameEntity bullet = (Bullet)bulletList.get(i);
-                GameEntity enemy = (Enemy)enemyList.get(j);
-                if(bullet.isCollision(enemy)){
-                    ((Enemy) enemy).setHealth(((Enemy) enemy).getHealth() - ((Bullet) bullet).getDamage());
-                    if(((Enemy) enemy).getHealth() <= 0) enemyList.remove(j);
+                Bullet bullet = (Bullet)bulletList.get(i);
+                Enemy enemy = (Enemy)enemyList.get(j);
+                if(bullet.isCollision(enemy) == true){
+                    enemy.setHealth(enemy.getHealth() - bullet.getDamage());
+                    if( enemy.getHealth() <= 0) enemyList.remove(j);
                     bulletList.remove(i);
                     isCol = true;
                     break;
@@ -68,12 +68,12 @@ public class GameField {
             }
             if(isCol == true) break;
         }
-
+*/
         bulletList.forEach(GameEntity::update);
-        for(int i = 0; i < bulletList.size(); i++) {
+        /*for(int i = 0; i < bulletList.size(); i++) {
             Bullet bullet = (Bullet) bulletList.get(i);
             if(bullet.getDistance() > bullet.getMaxDistance()) bulletList.remove(i);
-        }
+        }*/
         enemyList.forEach(GameEntity::update);
         towerList.forEach(GameEntity::update);
     }
@@ -115,6 +115,6 @@ public class GameField {
     }
     public void addTower(){
         towerList.add(createTower(3,5, new NormalTower()));
-        towerList.add(createTower(7,6, new NormalTower()));
+        towerList.add(createTower(9,6, new NormalTower()));
     }
 }

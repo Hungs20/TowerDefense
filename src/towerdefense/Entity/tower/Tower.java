@@ -78,10 +78,10 @@ public abstract class Tower extends GameEntity {
 
     public Bullet createBullet(){
         Bullet bullet = new Bullet();
-        bullet.setX((int) (this.getX() + this.getImg().getWidth()/2));
-        bullet.setY((int) (this.getY() + this.getImg().getHeight()/2));
+        bullet.setX((int) (this.getX() + this.getImg().getWidth()/2 - bulletImg.getWidth()/2));
+        bullet.setY((int) (this.getY() + this.getImg().getHeight()/2 - bulletImg.getHeight()/2));
 
-        bullet.setGunImg(gunImg);
+        bullet.setBulletImg(bulletImg);
         bullet.setDamage(damage);
         bullet.setMaxDistance(radius);
 
@@ -102,25 +102,25 @@ public abstract class Tower extends GameEntity {
     @Override
     public void render(GraphicsContext gc) {
 
-
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
-        gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius/2, this.getY() + this.bgImg.getHeight()/2 - radius/2, radius, radius);
+        gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
 
         gc.drawImage(bgImg, this.getX(), this.getY());
         List<GameEntity> enemies = GameField.enemyList;
         double angle = 0;
+        Point towerPoint = new Point(this.getX() + (int)this.getImg().getWidth()/2,  this.getY() + (int)this.getImg().getHeight()/2);
+
         for(int i = 0; i < enemies.size(); i++){
 
             Point enemyPoint = new Point(enemies.get(i).getX() + (int)enemies.get(i).getImg().getWidth()/2, enemies.get(i).getY() + (int)enemies.get(i).getImg().getHeight()/2);
-            Point towerPoint = new Point(this.getX() + (int)this.getImg().getWidth()/2,  this.getY() + (int)this.getImg().getHeight()/2);
-
-            double distance = towerPoint.getDistance(enemyPoint);
+            double distance = enemyPoint.getDistance(towerPoint);
             if(distance <= this.radius){
                  angle = towerPoint.getAngle(enemyPoint) + 90;
                 if(speed <= 0) {
                     Bullet bullet = this.createBullet();
-                    bullet.setAngle(angle);
+                    bullet.setAngle(angle + 45);
+                    System.out.println(angle);
                     bulletList.add(bullet);
                     resetSpeed();
                 }
@@ -129,7 +129,6 @@ public abstract class Tower extends GameEntity {
             }
         }
         drawRotatedImage(gc, this.getImg(), angle, this.getX(), this.getY());
-
 
     }
 

@@ -9,7 +9,7 @@ import static towerdefense.GameField.bulletList;
 import static towerdefense.GameField.enemyList;
 
 public class Bullet extends GameEntity {
-    private Image gunImg;
+    private Image bulletImg;
     private int damage;
     private int speed = 20;
     private double maxDistance;
@@ -32,8 +32,8 @@ public class Bullet extends GameEntity {
         this.distance = distance;
     }
 
-    public Bullet(Image gunImg, int damage, int speed, int maxDistance, double angle) {
-        this.gunImg = gunImg;
+    public Bullet(Image bulletImg, int damage, int speed, int maxDistance, double angle) {
+        this.bulletImg = bulletImg;
         this.damage = damage;
         this.speed = speed;
         this.maxDistance = maxDistance;
@@ -44,12 +44,12 @@ public class Bullet extends GameEntity {
 
     }
 
-    public Image getGunImg() {
-        return gunImg;
+    public Image getBulletImg() {
+        return bulletImg;
     }
 
-    public void setGunImg(Image gunImg) {
-        this.gunImg = gunImg;
+    public void setBulletImg(Image bulletImg) {
+        this.bulletImg = bulletImg;
     }
 
     public int getDamage() {
@@ -78,17 +78,18 @@ public class Bullet extends GameEntity {
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.drawImage(gunImg, this.getX(), this.getY());
+        gc.save();
+        gc.rotate(angle);
+        gc.drawImage(bulletImg, this.getX(), this.getY());
+        gc.restore();
     }
 
     @Override
     public void update() {
         Point currentPos = new Point(this.getX(), this.getY());
-        this.setX((int) (this.getX() + speed * Math.sin(angle)));
-        this.setY((int) (this.getY() + speed * Math.cos(angle)));
+        this.setX((int) (this.getX() + speed * Math.cos(angle)));
+        this.setY((int) (this.getY() + speed * Math.sin(angle)));
         Point newPos = new Point(this.getX(), this.getY());
         distance += currentPos.getDistance(newPos);
-       // distance = speed;
-        System.out.println(speed + " " + maxDistance + " " + currentPos.getDistance(newPos));
     }
 }

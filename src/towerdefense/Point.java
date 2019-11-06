@@ -1,5 +1,8 @@
 package towerdefense;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
 public class Point {
     private int x;
     private int y;
@@ -37,6 +40,19 @@ public class Point {
 
     public double getDistance(Point target){
         return Math.sqrt(Math.pow(target.getX() - x, 2) + Math.pow(target.getY() - y, 2));
+    }
+
+    public void draw(GraphicsContext gc){
+        gc.save();
+        gc.setFill(Color.BLACK);
+        gc.fillOval(x, y, 10,10);
+        gc.restore();
+    }
+    public void drawd(GraphicsContext gc){
+        gc.save();
+        gc.setFill(Color.RED);
+        gc.fillOval(x, y, 10,10);
+        gc.restore();
     }
 
     @Override

@@ -4,7 +4,7 @@ public class config {
     public static final String pathImg = "file:src/towerdefense/data/";
     public static final int TILE_SIZE = 64;
     public static final int MAP_WIDTH = 15;
-    public static final int MAP_HEIGHT = 10;
+    public static final int MAP_HEIGHT = 9;
     public static final int MENU_WIDTH = 3;
     public static final int MENU_HEIGHT = 10;
 

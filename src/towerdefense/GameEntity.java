@@ -4,6 +4,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import javafx.geometry.Rectangle2D;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+
+import java.io.IOException;
 
 public abstract class GameEntity {
     private int i, j;
@@ -17,15 +20,25 @@ public abstract class GameEntity {
     public abstract void update();
 
     // Tao hinh chu nhat bao quanh
-    public Rectangle2D getBoundary() throws NullPointerException{
-        if(this == null) throw new NullPointerException();
-        return new Rectangle2D(x, y, img.getWidth(), img.getHeight());
+    public Rectangle2D getBoundary() {
+        try {
+            Rectangle2D rectangle2D = new Rectangle2D(x, y, img.getWidth(), img.getHeight());
+            return rectangle2D;
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     ///kiem tra va cham
-    public boolean isCollision(GameEntity other) throws NullPointerException {
-        Rectangle2D rectangle2D = getBoundary();
-        return false;//other.getBoundary().intersects(getBoundary());
+    public boolean isCollision(GameEntity other)  {
+        try {
+            return other.getBoundary().intersects(this.getBoundary());
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public int getI() {
