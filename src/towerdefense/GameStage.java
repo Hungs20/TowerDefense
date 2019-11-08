@@ -2,11 +2,14 @@ package towerdefense;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
@@ -34,8 +37,11 @@ public class GameStage extends Application {
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
+
+
         // Tao root container
         Group root = new Group();
+
         root.getChildren().add(canvas);
 
         // Tao scene
