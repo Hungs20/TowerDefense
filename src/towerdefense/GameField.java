@@ -10,6 +10,7 @@ import towerdefense.Entity.menu.ItemTower;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
+import towerdefense.GameMap.TitleMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,8 @@ public class GameField {
     public static List<GameEntity> towerList = new ArrayList<>();
     public static List<ItemTower> itemTowerList = new ArrayList<>();
     public static List<GameEntity> bulletList = new ArrayList<>();
-
+    public static List<TitleMap> road = new ArrayList<>();
+    public static List<TitleMap> land = new ArrayList<>();
 
     public GraphicsContext getGc() {
         return gc;
@@ -34,8 +36,6 @@ public class GameField {
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
     }
-
-
 
 
     private void drawMap() {
