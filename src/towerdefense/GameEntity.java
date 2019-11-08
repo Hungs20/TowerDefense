@@ -1,46 +1,45 @@
 package towerdefense;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import javafx.geometry.Rectangle2D;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
+import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 
-import java.io.IOException;
-
-public abstract class GameEntity {
+public abstract class GameEntity  {
     private int i, j;
     private int x;
     private int y;
     private Image img;
 
 
-
     public abstract void render(GraphicsContext gc);
     public abstract void update();
-
     // Tao hinh chu nhat bao quanh
-    public Rectangle2D getBoundary() {
-        try {
-            Rectangle2D rectangle2D = new Rectangle2D(x, y, img.getWidth(), img.getHeight());
-            return rectangle2D;
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
-
-        return null;
+    public Rectangle2D getBoundary(){
+       if(this.getImg() == null) return null;
+        return new Rectangle2D(x, y, img.getWidth(), img.getHeight());
     }
+
 
     ///kiem tra va cham
     public boolean isCollision(GameEntity other)  {
-        try {
-            return other.getBoundary().intersects(this.getBoundary());
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
-        return false;
+        if(other.getBoundary() == null || getBoundary() == null) return false;
+        return other.getBoundary().intersects(this.getBoundary());
     }
-
+    public void rotate(GraphicsContext gc, double angle, double px, double py) {
+        Rotate r = new Rotate(angle, px, py);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+    public void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
+        gc.save(); // saves the current state on stack, including the current transform
+        rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
+        gc.drawImage(image, tlpx, tlpy);
+        gc.restore(); // back to original state (before rotation)
+    }
     public int getI() {
         return i;
     }

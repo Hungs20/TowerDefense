@@ -22,10 +22,10 @@ public class Menu {
     }
 
     public void showMenu(GraphicsContext gc){
-        for (int i = 0; i < listMenu.size(); i++){
+       /* for (int i = 0; i < listMenu.size(); i++){
           //  this.listMenu.get(i).addEventFilter(MouseEvent.MOUSE_CLICKED, listMenu.get(i).eventHandler)
-            this.listMenu.get(i).render(gc);
-        }
+            this.listMenu.get(i).render(gc, );
+        }*/
     }
 
     public void createItemTower(){

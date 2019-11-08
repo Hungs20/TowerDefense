@@ -8,6 +8,7 @@ public class config {
     public static final int MENU_WIDTH = 3;
     public static final int MENU_HEIGHT = 10;
 
+    public static final int SPEED_NORMAL_TOWER = 10;
 
     public static final int SCREEN_WIDTH = TILE_SIZE * MAP_WIDTH + TILE_SIZE * MENU_WIDTH;
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAP_HEIGHT;
