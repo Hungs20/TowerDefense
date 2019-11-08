@@ -1,11 +1,8 @@
 package towerdefense;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
@@ -13,6 +10,7 @@ import towerdefense.Entity.menu.ItemTower;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
+import towerdefense.GameMap.TitleMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,9 @@ public class GameField {
     public static List<GameEntity> enemyList = new ArrayList<>();
     public static List<GameEntity> towerList = new ArrayList<>();
     public static List<ItemTower> itemTowerList = new ArrayList<>();
-
+    public static List<GameEntity> bulletList = new ArrayList<>();
+    public static List<TitleMap> road = new ArrayList<>();
+    public static List<TitleMap> land = new ArrayList<>();
 
     public GraphicsContext getGc() {
         return gc;
@@ -36,8 +36,6 @@ public class GameField {
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
     }
-
-
 
 
     private void drawMap() {
@@ -55,15 +53,35 @@ public class GameField {
     }
 
     public void update() {
-
+        /*for(int i = 0; i < bulletList.size(); i++){
+            boolean isCol = false;
+            for(int j = 0; j < enemyList.size(); j++){
+                Bullet bullet = (Bullet)bulletList.get(i);
+                Enemy enemy = (Enemy)enemyList.get(j);
+                if(bullet.isCollision(enemy) == true){
+                    enemy.setHealth(enemy.getHealth() - bullet.getDamage());
+                    if( enemy.getHealth() <= 0) enemyList.remove(j);
+                    bulletList.remove(i);
+                    isCol = true;
+                    break;
+                }
+            }
+            if(isCol == true) break;
+        }
+*/
+        bulletList.forEach(GameEntity::update);
+        /*for(int i = 0; i < bulletList.size(); i++) {
+            Bullet bullet = (Bullet) bulletList.get(i);
+            if(bullet.getDistance() > bullet.getMaxDistance()) bulletList.remove(i);
+        }*/
         enemyList.forEach(GameEntity::update);
         towerList.forEach(GameEntity::update);
-
     }
 
     public void render() {
         drawMap();
         drawMenu();
+        bulletList.forEach(g -> g.render(gc));
         enemyList.forEach(g -> g.render(gc));
         towerList.forEach(g -> g.render(gc));
     }
@@ -84,18 +102,19 @@ public class GameField {
         newTower.setJ(j);
         newTower.setX(newTower.getI() * TILE_SIZE);
         newTower.setY(newTower.getJ() * TILE_SIZE);
+
         return newTower;
     }
 
     public void addEnemy(){
         enemyList.add(createEnemy(0, 6, new NormalEnemy()));
         enemyList.add(createEnemy(0, 10, new NormalEnemy()));
-       // enemyList.add(createEnemy(0, 12, new NormalEnemy()));
+        enemyList.add(createEnemy(0, 12, new NormalEnemy()));
 
 
     }
     public void addTower(){
-        towerList.add(createTower(11,4, new NormalTower()));
-       // towerList.add(createTower(9,6, new NormalTower()));
+        towerList.add(createTower(3,5, new NormalTower()));
+        towerList.add(createTower(9,6, new NormalTower()));
     }
 }
