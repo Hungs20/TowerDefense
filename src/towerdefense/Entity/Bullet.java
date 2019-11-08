@@ -1,17 +1,17 @@
 package towerdefense.Entity;
 
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import towerdefense.GameEntity;
 import towerdefense.Point;
 
-import static towerdefense.GameField.bulletList;
 import static towerdefense.GameField.enemyList;
 
 public class Bullet extends GameEntity {
-    private Image bulletImg;
     private int damage;
-    private int speed = 20;
+    private int speed = 30;
     private double maxDistance;
     private double distance;
     private double angle;
@@ -32,8 +32,8 @@ public class Bullet extends GameEntity {
         this.distance = distance;
     }
 
-    public Bullet(Image bulletImg, int damage, int speed, int maxDistance, double angle) {
-        this.bulletImg = bulletImg;
+    public Bullet(Image img, int damage, int speed, int maxDistance, double angle) {
+        this.setImg(img);
         this.damage = damage;
         this.speed = speed;
         this.maxDistance = maxDistance;
@@ -44,13 +44,7 @@ public class Bullet extends GameEntity {
 
     }
 
-    public Image getBulletImg() {
-        return bulletImg;
-    }
 
-    public void setBulletImg(Image bulletImg) {
-        this.bulletImg = bulletImg;
-    }
 
     public int getDamage() {
         return damage;
@@ -76,20 +70,20 @@ public class Bullet extends GameEntity {
         this.maxDistance = maxDistance;
     }
 
+    public void updateNewPos(){
+       this.setX((int) (Math.cos(Math.toRadians(angle - 90)) * speed + this.getX()));
+       this.setY((int) (Math.sin(Math.toRadians(angle - 90)) * speed + this.getY()));
+        distance += speed;
+    }
     @Override
     public void render(GraphicsContext gc) {
-        gc.save();
-        gc.rotate(angle);
-        gc.drawImage(bulletImg, this.getX(), this.getY());
-        gc.restore();
+        this.drawRotatedImage(gc, this.getImg(), this.angle, this.getX(), this.getY());
     }
 
     @Override
     public void update() {
-        Point currentPos = new Point(this.getX(), this.getY());
-        this.setX((int) (this.getX() + speed * Math.cos(angle)));
-        this.setY((int) (this.getY() + speed * Math.sin(angle)));
-        Point newPos = new Point(this.getX(), this.getY());
-        distance += currentPos.getDistance(newPos);
+        updateNewPos();
     }
+
+
 }

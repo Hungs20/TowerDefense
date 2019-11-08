@@ -1,10 +1,8 @@
 package towerdefense.Entity.enemy;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import towerdefense.GameEntity;
 import towerdefense.Point;
 
@@ -84,25 +82,10 @@ public abstract class Enemy extends GameEntity {
 
     @Override
     public void render(GraphicsContext gc) {
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
 
-        ImageView iv = new ImageView(this.getImg());
-        iv.setRotate(this.direction.getDegree());
-        Image base = iv.snapshot(params, null);
+        drawRotatedImage(gc, this.getImg(), this.direction.getDegree(), this.getX(), this.getY());
+        drawRotatedImage(gc, this.getGunImg(), this.direction.getDegree(), this.getX(), this.getY());
 
-        ImageView iv2 = new ImageView(gunImg);
-        iv2.setRotate(this.direction.getDegree());
-        Image gun = iv2.snapshot(params, null);
-
-        gc.drawImage(base, this.getX(), this.getY());
-        gc.drawImage(gun, this.getX(), this.getY());
-
-        gc.setFill(Color.RED);
-        gc.fillOval(wayPoints[wayPointIndex].getX(),wayPoints[wayPointIndex].getY(),10, 10);
-
-        gc.setFill(Color.BLUE);
-        gc.fillOval(this.getX(), this.getY(),10, 10);
     }
 
     void calculateDirection() {

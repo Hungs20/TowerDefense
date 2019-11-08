@@ -7,6 +7,8 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -21,7 +23,7 @@ import towerdefense.*;
 
 import static towerdefense.config.*;
 
-public abstract class Tower extends GameEntity {
+public abstract class Tower extends GameEntity  {
     private int speed;
     private double radius;
     private int damage;
@@ -94,8 +96,9 @@ public abstract class Tower extends GameEntity {
         bullet.setX(this.getX());
         bullet.setY(this.getY());
         bullet.setAngle(this.angle);
+        bullet.setDistance(0);
         bullet.updateNewPos();
-        bullet.setBulletImg(bulletImg);
+        bullet.setImg(bulletImg);
         bullet.setDamage(damage);
         bullet.setMaxDistance(radius);
 
@@ -103,10 +106,22 @@ public abstract class Tower extends GameEntity {
     }
 
 
-
     public abstract void resetSpeed();
 
     public void drawCircle(GraphicsContext gc){
+       /* gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("click");
+            }
+        });*/
+       ImageView imageView = new ImageView(this.getImg());
+        imageView.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("press");
+            }
+        });
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
@@ -141,13 +156,23 @@ public abstract class Tower extends GameEntity {
                     bullets.add(_bullet);
                     resetSpeed();
                 }
-                break;
             }
         }
         this.setSpeed(this.getSpeed() - 1);
-        for(int i = bullets.size(); i >= 0; i--){
-            if(bullets.get(i).getDistance() > bullets.get(i).getMaxDistance()) bullets.remove(i);
+        for(int i = bullets.size() - 1; i >= 0; i--){
+            Bullet bullet = bullets.get(i);
+            if(bullet == null) break;
+            if(bullet.getDistance() > bullet.getMaxDistance()) bullets.remove(bullet);
+            for(int j = GameField.enemyList.size() - 1; j >= 0; j--){
+                Enemy enemy = (Enemy) GameField.enemyList.get(j);
+
+                if(enemy == null) break;
+                if(bullet.isCollision(enemy)) {
+                    GameField.enemyList.remove(enemy);
+                }
+            }
         }
+
         if(bullets != null) bullets.forEach(GameEntity::update);
         setBulletList(bullets);
     }

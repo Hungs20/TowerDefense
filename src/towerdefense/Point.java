@@ -29,31 +29,24 @@ public class Point {
     }
 
     public double getAngle(Point target){
-        double angle = (double) Math.toDegrees(Math.atan2(target.getY() - y, target.getX() - x));
+
+        int deltaX = target.getX() - x;
+        int deltaY = y - target.getY();
+        double angle = Math.atan2(deltaY, deltaX);
 
         if(angle < 0){
-            angle += 360;
+            angle = Math.abs(angle);
         }
+        else angle = 2 * Math.PI - angle;
 
-        return angle;
+        return Math.toDegrees(angle);
     }
 
     public double getDistance(Point target){
         return Math.sqrt(Math.pow(target.getX() - x, 2) + Math.pow(target.getY() - y, 2));
     }
 
-    public void draw(GraphicsContext gc){
-        gc.save();
-        gc.setFill(Color.BLACK);
-        gc.fillOval(x, y, 10,10);
-        gc.restore();
-    }
-    public void drawd(GraphicsContext gc){
-        gc.save();
-        gc.setFill(Color.RED);
-        gc.fillOval(x, y, 10,10);
-        gc.restore();
-    }
+
 
     @Override
     public String toString() {
