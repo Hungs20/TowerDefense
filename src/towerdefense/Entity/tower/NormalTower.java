@@ -17,8 +17,7 @@ import towerdefense.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import static towerdefense.config.SPEED_NORMAL_TOWER;
-import static towerdefense.config.pathImg;
+import static towerdefense.config.*;
 
 public class NormalTower extends Tower {
     public NormalTower(){
@@ -27,7 +26,7 @@ public class NormalTower extends Tower {
         this.setDamage(100);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
-        this.setBulletImg(new Image(pathImg + "towerDefense_tile251.png"));
+        this.setBulletImg(new Image(pathImg + "towerDefense_tile272.png"));
     }
 
     @Override
@@ -38,10 +37,6 @@ public class NormalTower extends Tower {
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
-
-
-
-
     }
 
     @Override

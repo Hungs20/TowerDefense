@@ -9,13 +9,23 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
+import static towerdefense.config.TILE_SIZE;
+
 public abstract class GameEntity  {
     private int i, j;
     private int x;
     private int y;
     private Image img;
 
+    public GameEntity(){
 
+    }
+    public GameEntity(int i, int j){
+        this.i = i;
+        this.j = j;
+        this.x = i * TILE_SIZE;
+        this.y = j * TILE_SIZE;
+    }
     public abstract void render(GraphicsContext gc);
     public abstract void update();
     // Tao hinh chu nhat bao quanh

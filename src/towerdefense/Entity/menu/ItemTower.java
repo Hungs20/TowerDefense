@@ -9,7 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import towerdefense.Entity.tower.NormalTower;
+import towerdefense.Entity.tower.Tower;
 import towerdefense.GameEntity;
+import towerdefense.GameField;
+import towerdefense.GameStage;
+import towerdefense.Player;
+
+import static towerdefense.config.*;
 
 public class ItemTower extends GameEntity {
     private int price;
@@ -18,10 +25,21 @@ public class ItemTower extends GameEntity {
     private int speed;
     private double area;
     private int level;
+    private Tower tower;
+    private boolean isCreate = false;
+    private ImageView imageView;
+    private  ImageView imgView; // cai nay dung de hien thi thap khi di chuot
 
 
     public ItemTower() {
+    }
 
+    public Tower getTower() {
+        return tower;
+    }
+
+    public void setTower(Tower tower) {
+        this.tower = tower;
     }
 
     public int getPrice() {
@@ -72,36 +90,63 @@ public class ItemTower extends GameEntity {
         this.level = level;
     }
 
-    public void showInfo(){
-        System.out.println(name);
+    public void setCreate(boolean create) {
+        isCreate = create;
     }
-    /* EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            showInfo();
+
+    public void buyTower(int i, int j){
+        if(Player.Instance().getCoin() >= price){
+            Player.Instance().setCoin(Player.Instance().getCoin() - price);
+            GameField.getTowerList().add(GameField.getInstance().createTower(i, j, getTower()));
         }
-    };*/
+    }
 
     @Override
     public void render(GraphicsContext gc) {
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        ImageView iv = new ImageView(this.getImg());
-            Image imgg = iv.snapshot(params, null);
-        iv.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        if(root.getChildren().indexOf(this.imageView) < 0)
+        {
+            imageView = createImageView(this.getImg(),this.getX(),this.getY());
+            imgView = createImageView(this.getImg(),this.getX(),this.getY());
+            root.getChildren().addAll(this.imageView);
 
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("Tile pressed ");
-                event.consume();
-            }
-        });
-        //gc.drawImage(imgg, this.getX(), this.getY());
+            imageView.setOnMousePressed(event -> {
+                isCreate = !isCreate;
+                root.getChildren().addAll(imgView);
+                imgView.setX(event.getX()-TILE_SIZE/2);
+                imgView.setY(event.getY()-TILE_SIZE/2);
+                for(int i = 0; i < GameField.itemMenuList.size(); i++)
+                {
+                    if(!GameField.itemMenuList.get(i).equals(this)){
+                        GameField.itemMenuList.get(i).setCreate(false);
+                    }
+                }
+
+                root.setOnMouseDragged(event1 -> {
+                    //System.out.println("aaaa");
+                    if(root.getChildren().indexOf(imgView) >= 0)
+                    {
+                        imgView.setX(event1.getX()-TILE_SIZE/2);
+                        imgView.setY(event1.getY()-TILE_SIZE/2);
+                    }
+
+                });
+
+                root.setOnMouseClicked(event1 -> {
+                    if(root.getChildren().indexOf(imgView) >= 0)
+                    {
+                        buyTower((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
+                        //GameField.getTowerList().add(GameField.getInstance().createTower((int)event.getX()/TILE_SIZE,(int)event.getY()/TILE_SIZE,new NormalTower()));
+                        isCreate=!isCreate;
+                    }
+
+                });
+            });
+        }
     }
 
     @Override
     public void update() {
-
+        if(!isCreate) root.getChildren().remove(imgView);
     }
 
 
