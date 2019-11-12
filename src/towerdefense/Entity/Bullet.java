@@ -15,6 +15,15 @@ public class Bullet extends GameEntity {
     private double maxDistance;
     private double distance;
     private double angle;
+    private boolean isHas;
+
+    public boolean getIsHas() {
+        return isHas;
+    }
+
+    public void setIsHas(boolean has) {
+        isHas = has;
+    }
 
     public double getAngle() {
         return angle;

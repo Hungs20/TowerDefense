@@ -26,23 +26,22 @@ import static towerdefense.config.*;
 public class GameStage extends Application {
 
     private GraphicsContext gc;
-
-
-
+    public static ImageView imRoot = new ImageView();
+    public static Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
         stage.setTitle("Tower Defense");
         // Tao Canvas
-        Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+
         gc = canvas.getGraphicsContext2D();
 
 
 
         // Tao root container
-        Group root = new Group();
+      //  Group root = new Group();
 
-        root.getChildren().add(canvas);
+        root.getChildren().addAll(canvas);
 
         // Tao scene
         Scene scene = new Scene(root);
@@ -56,7 +55,6 @@ public class GameStage extends Application {
 
         GameField gameField = new GameField();
         gameField.setGc(gc);
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
@@ -66,7 +64,6 @@ public class GameStage extends Application {
         };
         timer.start();
 
-        gameField.addEnemy();
         gameField.addTower();
     }
 
