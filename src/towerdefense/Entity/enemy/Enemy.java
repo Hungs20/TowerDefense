@@ -3,6 +3,7 @@ package towerdefense.Entity.enemy;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import towerdefense.GameEntity;
 import towerdefense.Player;
 import towerdefense.Point;
@@ -20,6 +21,8 @@ public abstract class Enemy extends GameEntity {
     private int armor;
     private Image gunImg;
     private int gunRotation;
+
+    public abstract double getMaxHealth();
 
     public double getSpeed() {
         return speed;
@@ -94,7 +97,13 @@ public abstract class Enemy extends GameEntity {
 
     @Override
     public void render(GraphicsContext gc) {
-
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1);
+        gc.strokeRect(this.getX(),this.getY(),TILE_SIZE,5);
+        gc.setFill(Color.BLUE);
+        gc.fillRect(this.getX(),this.getY(),TILE_SIZE,5);
+        gc.setFill(Color.RED);
+        gc.fillRect(this.getX(),this.getY(),TILE_SIZE*(this.getHealth()/getMaxHealth()),5);
         drawRotatedImage(gc, this.getImg(), this.direction.getDegree(), this.getX(), this.getY());
         drawRotatedImage(gc, this.getGunImg(), this.direction.getDegree(), this.getX(), this.getY());
 

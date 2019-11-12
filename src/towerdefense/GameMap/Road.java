@@ -1,9 +1,7 @@
 package towerdefense.GameMap;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import static towerdefense.config.TILE_SIZE;
 import static towerdefense.config.pathImg;
 
 public class Road extends TitleMap {

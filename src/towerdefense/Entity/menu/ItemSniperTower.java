@@ -11,9 +11,9 @@ import static towerdefense.config.pathImg;
 public class ItemSniperTower extends ItemTower {
     public ItemSniperTower() {
         this.setSpeed(SPEED_SNIPER_TOWER);
-        this.setArea(200);
-        this.setDamage(100);
-        this.setImg(new Image(pathImg + "towerDefense_tile203.png"));
+        this.setArea(150);
+        this.setDamage(150);
+        this.setImg(new Image(pathImg + "towerDefense_tile250.png"));
         this.setName("Sniper Tower");
         this.setPrice(15);
         this.setLevel(1);

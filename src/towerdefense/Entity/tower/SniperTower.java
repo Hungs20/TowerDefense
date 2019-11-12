@@ -11,8 +11,8 @@ public class SniperTower extends Tower {
         this.setSpeed(SPEED_SNIPER_TOWER);
         this.setRadius(200);
         this.setDamage(150);
-        this.setImg(new Image(pathImg + "towerDefense_tile203.png"));
-        this.setBgImg(new Image(pathImg + "towerDefense_tile183.png"));
+        this.setImg(new Image(pathImg + "towerDefense_tile250.png"));
+        this.setBgImg(new Image(pathImg + "towerDefense_tile182.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile251.png"));
     }
 

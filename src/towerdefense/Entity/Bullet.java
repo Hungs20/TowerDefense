@@ -21,8 +21,8 @@ public class Bullet extends GameEntity {
         return isHas;
     }
 
-    public void setIsHas(boolean has) {
-        isHas = has;
+    public void setIsHas(boolean isHas) {
+        this.isHas = isHas;
     }
 
     public double getAngle() {

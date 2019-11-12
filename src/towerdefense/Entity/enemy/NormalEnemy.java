@@ -9,7 +9,7 @@ import static towerdefense.config.pathImg;
 
 public class NormalEnemy extends Enemy {
 
-    private final double SPEED = 10;
+    private final double SPEED = 5;
     private final Direction DIRECTION = Direction.UP;
     private final int HEALTH = 100;
     private final int ARMOR = 100;
@@ -26,4 +26,8 @@ public class NormalEnemy extends Enemy {
     }
 
 
+    @Override
+    public double getMaxHealth() {
+        return HEALTH;
+    }
 }

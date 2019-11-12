@@ -9,7 +9,7 @@ import static towerdefense.config.pathImg;
 public class ItemNormalTower extends ItemTower {
     public ItemNormalTower() {
         this.setSpeed(100);
-        this.setArea(200);
+        this.setArea(100);
         this.setDamage(100);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setName("Normal Tower");

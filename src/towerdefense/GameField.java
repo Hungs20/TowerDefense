@@ -2,7 +2,6 @@ package towerdefense;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,12 +17,10 @@ import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static towerdefense.config.*;
-import static towerdefense.config.MAP_SPRITES;
+//import static towerdefense.config.MAP_SPRITES;
 
 public class GameField {
     private static GameField instance;
@@ -35,16 +32,16 @@ public class GameField {
     private GraphicsContext gc;
 
 
-    public static List<GameEntity> enemyList = new ArrayList<>();
+    public static List<Enemy> enemyList = new ArrayList<>();
     public static List<GameEntity> towerList = new ArrayList<>();
-    public static List<ItemTower> itemMenuList = new ArrayList<>();
 
-    public static List<Land> landList = new ArrayList<Land>();
+    public static List<Land> landList = new ArrayList<>();
     public static List<Road> roadList = new ArrayList<>();
-    public static Spawner spawner = new Spawner(2, MAP_HEIGHT - 1);
-    public static Target target = new Target(MAP_WIDTH - 3, 0);
+    public static Spawner spawner = new Spawner(0,1);
+    public static Target target = new Target(MAP_WIDTH - 1, MAP_HEIGHT - 1);
+    public static List<TitleMap> otherTileList = new ArrayList<>();
 
-    public static Map mapGame = new Map();
+
 
     public GraphicsContext getGc() {
         return gc;
@@ -55,22 +52,17 @@ public class GameField {
     }
 
 
-
-
     public void update() {
-
-        mapGame.update();
+        Map.Instance().update();
         enemyList.forEach(GameEntity::update);
         towerList.forEach(GameEntity::update);
-        itemMenuList.forEach(GameEntity::update);
-
+        Menu.getInstance().prinInforPlayer();
     }
 
     public void render() {
-        mapGame.render(gc);
+        Map.Instance().render(gc);
         enemyList.forEach(g -> g.render(gc));
         towerList.forEach(g -> g.render(gc));
-        itemMenuList.forEach(g -> g.render(gc));
     }
 
     public Tower createTower(int i, int j, Tower _newTower){
@@ -82,12 +74,12 @@ public class GameField {
         return newTower;
     }
 
-
     public static List<GameEntity> getTowerList() {
         return towerList;
     }
 
     public void addTower(){
         Menu.getInstance().createItemTower();
+        towerList.add(createTower(9,6, new NormalTower()));
     }
 }
