@@ -1,5 +1,10 @@
 package towerdefense.GameMap;
 
+import javafx.util.Pair;
+
+import static towerdefense.config.*;
+import static towerdefense.config.TILE_SIZE;
+
 public enum Direction{
     LEFT(-1, 0), UP(0, -1), RIGHT(1, 0), DOWN(0, 1);
     private int xDir, yDir;

@@ -9,12 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameEntity;
 import towerdefense.GameField;
-import towerdefense.GameMap.Map;
 import towerdefense.GameStage;
 import towerdefense.Player;
 
@@ -97,33 +95,34 @@ public class ItemTower extends GameEntity {
     }
 
     public void buyTower(int i, int j){
-        if(Map.Instance().isOnRoad(i,j) == false)
-        {
-            if(Player.Instance().getCoin() >= price){
-                Player.Instance().setCoin(Player.Instance().getCoin() - price);
-                GameField.getTowerList().add(GameField.getInstance().createTower(i, j, getTower()));
-            }
+        if(Player.Instance().getCoin() >= price){
+            Player.Instance().setCoin(Player.Instance().getCoin() - price);
+            GameField.getTowerList().add(GameField.getInstance().createTower(i, j, getTower()));
         }
     }
 
-    public void render(){
-
+    @Override
+    public void render(GraphicsContext gc) {
         if(root.getChildren().indexOf(this.imageView) < 0)
         {
             imageView = createImageView(this.getImg(),this.getX(),this.getY());
             imgView = createImageView(this.getImg(),this.getX(),this.getY());
             root.getChildren().addAll(this.imageView);
 
-            imageView.setOnMouseMoved(event -> {
-                Menu.getInstance().printInfor(this);
-            });
             imageView.setOnMousePressed(event -> {
                 isCreate = !isCreate;
                 root.getChildren().addAll(imgView);
                 imgView.setX(event.getX()-TILE_SIZE/2);
                 imgView.setY(event.getY()-TILE_SIZE/2);
+                for(int i = 0; i < GameField.itemMenuList.size(); i++)
+                {
+                    if(!GameField.itemMenuList.get(i).equals(this)){
+                        GameField.itemMenuList.get(i).setCreate(false);
+                    }
+                }
 
                 root.setOnMouseDragged(event1 -> {
+                    //System.out.println("aaaa");
                     if(root.getChildren().indexOf(imgView) >= 0)
                     {
                         imgView.setX(event1.getX()-TILE_SIZE/2);
@@ -136,7 +135,7 @@ public class ItemTower extends GameEntity {
                     if(root.getChildren().indexOf(imgView) >= 0)
                     {
                         buyTower((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
-                        root.getChildren().remove(imgView);
+                        //GameField.getTowerList().add(GameField.getInstance().createTower((int)event.getX()/TILE_SIZE,(int)event.getY()/TILE_SIZE,new NormalTower()));
                         isCreate=!isCreate;
                     }
 
@@ -146,8 +145,9 @@ public class ItemTower extends GameEntity {
     }
 
     @Override
-    public void update() {}
-    @Override
-    public void render(GraphicsContext gc) {}
+    public void update() {
+        if(!isCreate) root.getChildren().remove(imgView);
+    }
+
 
 }

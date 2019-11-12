@@ -150,7 +150,7 @@ public abstract class Tower extends GameEntity  {
 
     @Override
     public void update() {
-        List<Enemy> enemies = GameField.enemyList;
+        List<GameEntity> enemies = GameField.enemyList;
 
         Point towerPoint = new Point(this.getX() ,  this.getY() );
         List<Bullet> bullets = getBulletList();
@@ -180,10 +180,7 @@ public abstract class Tower extends GameEntity  {
                 if(enemy == null) break;
                 if(bullet.isCollision(enemy)) {
                     enemy.setHealth(enemy.getHealth() - this.damage);
-                    if(enemy.getHealth() <= 0) {
-                        Player.Instance().setCoin(Player.Instance().getCoin()+enemy.getReward());
-                        GameField.enemyList.remove(enemy);
-                    }
+                    if(enemy.getHealth() <= 0) GameField.enemyList.remove(enemy);
                     bullet.setIsHas(false);
                 }
             }

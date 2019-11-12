@@ -17,15 +17,15 @@ public abstract class GameEntity  {
     private int y;
     private Image img;
 
-    public GameEntity(){}
+    public GameEntity(){
 
+    }
     public GameEntity(int i, int j){
         this.i = i;
         this.j = j;
         this.x = i * TILE_SIZE;
         this.y = j * TILE_SIZE;
     }
-
     public abstract void render(GraphicsContext gc);
     public abstract void update();
     // Tao hinh chu nhat bao quanh
