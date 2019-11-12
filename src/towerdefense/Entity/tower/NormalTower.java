@@ -26,7 +26,7 @@ public class NormalTower extends Tower {
         this.setDamage(100);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
-        this.setBulletImg(new Image(pathImg + "towerDefense_tile272.png"));
+        this.setBulletImg(new Image(pathImg + "towerDefense_tile295.png"));
     }
 
     @Override

@@ -2,6 +2,7 @@ package towerdefense.GameMap;
 
 import javafx.scene.image.Image;
 import towerdefense.Entity.enemy.Enemy;
+import towerdefense.Entity.menu.Menu;
 import towerdefense.Player;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.List;
 
 import static towerdefense.GameField.enemyList;
 import static towerdefense.config.*;
-import static towerdefense.config.TILE_SIZE;
 
 public class Target extends TitleMap{
     private List<Enemy> enemiInTarget = new ArrayList<>();
@@ -24,9 +24,14 @@ public class Target extends TitleMap{
 
     public void update(){
         for(int i = 0; i < enemiInTarget.size(); i++){
-            Player.Instance().setHealth(Player.Instance().getHealth()-1);
+            Player.Instance().setLifes(Player.Instance().getLifes()-1);
             enemyList.remove(enemiInTarget.get(i));
+            if(Player.Instance().getLifes() <= 0)
+            {
+                Menu.getInstance().gameOver();
+            }
         }
+        enemiInTarget.clear();
     }
 
     public Target() {
@@ -34,7 +39,9 @@ public class Target extends TitleMap{
         int rand = (int)(Math.random()*4) + 1;
         int valX = (int)(Math.random() * MAP_WIDTH);
         int valY = (int)(Math.random() * MAP_HEIGHT);
-        switch (rand){
+        this.setI(valX);
+        this.setJ(valY);
+        /*switch (rand){
             case 1: // Left
                 this.setI(0);
                 this.setJ(valY);
@@ -50,7 +57,7 @@ public class Target extends TitleMap{
                 this.setI(valX);
                 this.setJ(MAP_HEIGHT - 1);
 
-        }
+        }*/
         this.setX(this.getI() * TILE_SIZE);
         this.setY(this.getJ() * TILE_SIZE);
 
