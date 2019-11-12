@@ -4,8 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import towerdefense.GameEntity;
+import towerdefense.Player;
 import towerdefense.Point;
 
+import java.util.List;
+
+import static towerdefense.GameField.*;
 import static towerdefense.config.*;
 
 public abstract class Enemy extends GameEntity {
@@ -75,8 +79,16 @@ public abstract class Enemy extends GameEntity {
 
     int wayPointIndex = 0;
     public Point getNextWayPoint() {
-        if (wayPointIndex < wayPoints.length - 1)
-            return wayPoints[++wayPointIndex];
+        int _wayPointIndex = wayPointIndex;
+        while (_wayPointIndex < roadList.size() -1 ) {
+            _wayPointIndex++;
+            Point point = new Point(roadList.get(_wayPointIndex).getX(), roadList.get(_wayPointIndex).getY());
+            if(roadList.get(_wayPointIndex).getX() != roadList.get(wayPointIndex).getX() || roadList.get(_wayPointIndex).getY() != roadList.get(wayPointIndex).getY()) {
+                wayPointIndex = _wayPointIndex;
+                return point;
+            }
+        }
+        wayPointIndex = _wayPointIndex;
         return null;
     }
 
@@ -90,17 +102,23 @@ public abstract class Enemy extends GameEntity {
 
     void calculateDirection() {
         // Tinh huong di tiep theo cho Object
-        if (wayPointIndex >= wayPoints.length) {
+        if (wayPointIndex >= roadList.size()) {
+            enemyList.remove(this);
             // Enemy den way point cuoi
             return;
         }
 
-        Point currentWP = wayPoints[wayPointIndex];
+        Point currentWP = new Point(roadList.get(wayPointIndex).getX(), roadList.get(wayPointIndex).getY());
         if (distance(this.getX(), this.getY(), currentWP.getX(), currentWP.getY()) <= speed) {
             this.setX(currentWP.getX());
             this.setY(currentWP.getY());
             Point nextWayPoint = getNextWayPoint();
-            if (nextWayPoint == null) return;
+            if (nextWayPoint == null) {
+                this.setX(SCREEN_WIDTH + 1);
+                this.setY(SCREEN_HEIGHT + 1);
+                target.getEnemiInTarget().add(this);
+                return;
+            }
             double deltaX = nextWayPoint.getX() - this.getX();
             double deltaY = nextWayPoint.getY() - this.getY();
             if (deltaX > speed) direction = Direction.RIGHT;
