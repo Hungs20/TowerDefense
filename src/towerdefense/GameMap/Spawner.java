@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
 import towerdefense.Entity.enemy.TankerEnemy;
+import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Player;
 import towerdefense.Point;
@@ -51,13 +52,12 @@ public class Spawner extends TitleMap{
 
         addEnemy();
         if(enemyList.size() == 0){
-            if(Menu.getInstance().isStart())
+            if(ButtonStart.Instance().isStart())
             {
                 numEnemy = NUM_ENEMY;
                 Player.Instance().setLevel(Player.Instance().getLevel()+1);
                 //addEnemy();
             }
-            Menu.getInstance().setStart(false);
         }
     }
 

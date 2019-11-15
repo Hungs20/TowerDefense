@@ -7,6 +7,11 @@ import static towerdefense.config.SPEED_SNIPER_TOWER;
 import static towerdefense.config.pathImg;
 
 public class SniperTower extends Tower {
+    public SniperTower(SniperTower sniperTower)
+    {
+        super(sniperTower);
+    }
+
     public SniperTower(){
         this.setSpeed(SPEED_SNIPER_TOWER);
         this.setRadius(200);
@@ -29,6 +34,5 @@ public class SniperTower extends Tower {
     @Override
     public void update() {
         super.update();
-
     }
 }

@@ -41,11 +41,6 @@ public abstract class Tower extends GameEntity  {
         return imgView;
     }
 
-    public void setImgView(ImageView imgView) {
-        this.imgView = imgView;
-    }
-
-
     public List<Bullet> getBulletList() {
         return bulletList;
     }
@@ -60,10 +55,6 @@ public abstract class Tower extends GameEntity  {
 
     public void setAngle(double angle) {
         this.angle = angle;
-    }
-
-    public Image getBulletImg() {
-        return bulletImg;
     }
 
     public void setBulletImg(Image bulletImg) {
@@ -94,13 +85,25 @@ public abstract class Tower extends GameEntity  {
         this.radius = radius;
     }
 
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public Tower(Tower newTower)
+    {
+        this.setImg(newTower.getImg());
+        this.speed = newTower.speed;
+        this.damage = newTower.speed;
+        this.radius = newTower.radius;
+        this.bgImg = newTower.bgImg;
+        this.bulletImg = newTower.bulletImg;
     }
+
+    public Tower(){}
 
 
     public Bullet createBullet(){

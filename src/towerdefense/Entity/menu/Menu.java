@@ -1,21 +1,18 @@
 package towerdefense.Entity.menu;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import towerdefense.GameEntity;
-import towerdefense.GameField;
+import towerdefense.Entity.menu.Button.Button;
+import towerdefense.Entity.menu.Button.ButtonGameOver;
+import towerdefense.Entity.menu.Button.ButtonStart;
+import towerdefense.Entity.menu.Button.ItemTower;
+import towerdefense.Entity.tower.NormalTower;
+import towerdefense.Entity.tower.SniperTower;
 import towerdefense.Player;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +23,7 @@ public class Menu {
     private List<ItemTower> itemMenuList = new ArrayList<>();
     private List<Label> listLabelInfor = new ArrayList<>();
     private Label labelPlayer;
-    private ImageView btStart;
-    private ImageView btGameOver;
-    private boolean isStart;
+    private List<Button> buttonList = new ArrayList<>();
     public static Menu getInstance()
     {
         if(instance == null)instance = new Menu();
@@ -45,47 +40,12 @@ public class Menu {
         showMenu();
     }
 
-
-    public boolean isStart() {
-        return isStart;
-    }
-
-    public void setStart(boolean start) {
-        if(!start)
-            root.getChildren().addAll(btStart);
-        else {
-            root.getChildren().remove(btStart);
-            root.getChildren().remove(btGameOver);
-        }
-
-        isStart = start;
-    }
-
-    public void gameOver()
-    {
-        root.getChildren().addAll(btGameOver);
-        isStart = false;
-        GameField.getTowerList().clear();
-        GameField.enemyList.clear();
-        Player.Instance().newGame();
-    }
-
     public void createItemTower(){
-        isStart = false;
 
-        ItemTower normalTower = new ItemNormalTower();
-        normalTower.setI(MAP_WIDTH);
-        normalTower.setJ(0);
-        normalTower.setX(normalTower.getI() * TILE_SIZE);
-        normalTower.setY(normalTower.getJ() * TILE_SIZE);
-        addMenuItem(normalTower);
+        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile249.png"),"Nomal Tower", new NormalTower(),MAP_WIDTH,0,20));
 
-        ItemTower sniperTower = new ItemSniperTower();
-        sniperTower.setI(MAP_WIDTH+1);
-        sniperTower.setJ(0);
-        sniperTower.setX(sniperTower.getI() * TILE_SIZE);
-        sniperTower.setY(sniperTower.getJ() * TILE_SIZE);
-        addMenuItem(sniperTower);
+
+        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile250.png"),"Sniper Tower", new SniperTower(),MAP_WIDTH+1,0, 10));
 
         for(int i = 1; i <= 4; i++)
         {
@@ -106,30 +66,22 @@ public class Menu {
         labelPlayer.setFont(new Font("Arial",20));
         root.getChildren().addAll(labelPlayer);
 
-        btGameOver = createImageView(new Image(pathImg + "buttonGameOver.png"),6*TILE_SIZE,4*TILE_SIZE);
-        btGameOver.setOnMouseClicked(event -> {
-            setStart(true);
-            Player.Instance().setLifes(10);
-        });
-
-        btStart = createImageView(new Image(pathImg + "buttonStart.png"), 6*TILE_SIZE,4*TILE_SIZE);
-        root.getChildren().addAll(btStart);
-        btStart.setOnMouseClicked(event -> {
-            setStart(true);
-        });
+        buttonList.add(ButtonStart.Instance());
+        buttonList.add(ButtonGameOver.Instance());
     }
 
     public void showMenu()
     {
         itemMenuList.forEach(g -> g.render());
+        buttonList.forEach(g->g.render());
     }
 
     public void printInfor(ItemTower tower)
     {
         listLabelInfor.forEach(g -> g.setOpacity(1));
         listLabelInfor.get(0).setText("   " +tower.getName());
-        listLabelInfor.get(1).setText("   DAMAGE:    " + tower.getDamage());
-        listLabelInfor.get(2).setText("   RANGE:     " + tower.getArea());
+        listLabelInfor.get(1).setText("   DAMAGE:    " + tower.getTower().getDamage());
+        listLabelInfor.get(2).setText("   RANGE:     " + tower.getTower().getRadius());
         listLabelInfor.get(3).setText("   PRICE:     " + tower.getPrice());
     }
 

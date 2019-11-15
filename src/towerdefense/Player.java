@@ -21,7 +21,7 @@ public class Player {
 
     public void newGame()
     {
-        level = 0;
+        level = -1;
         coin= 100;
         lifes = 10;
     }

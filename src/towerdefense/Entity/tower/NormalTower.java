@@ -20,6 +20,10 @@ import java.util.List;
 import static towerdefense.config.*;
 
 public class NormalTower extends Tower {
+    public NormalTower(NormalTower normalTower)
+    {
+        super(normalTower);
+    }
     public NormalTower(){
         this.setSpeed(SPEED_NORMAL_TOWER);
         this.setRadius(150);
