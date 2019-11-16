@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import towerdefense.Entity.Bullet;
+import towerdefense.Entity.menu.Button.SellButton;
 import towerdefense.GameEntity;
 import towerdefense.GameField;
 import towerdefense.Point;
@@ -28,9 +29,11 @@ public class NormalTower extends Tower {
         this.setSpeed(SPEED_NORMAL_TOWER);
         this.setRadius(150);
         this.setDamage(100);
+        this.setPrice(15);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile295.png"));
+        this.setSellButton(new SellButton(this));
     }
 
     @Override

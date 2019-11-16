@@ -24,17 +24,11 @@ import towerdefense.Player;
 import static towerdefense.config.*;
 
 public class ItemTower extends Button {
-    private int price;
     private String name;
     private Tower tower;
     private boolean isCreate;
 
     private  ImageView imgView; // cai nay dung de hien thi thap khi di chuot
-
-
-    public int getPrice() {
-        return price;
-    }
 
     public String getName() {
         return name;
@@ -45,13 +39,12 @@ public class ItemTower extends Button {
     }
 
 
-    public ItemTower(Image image, String name, Tower tower, int x, int y, int price) {
+    public ItemTower(Image image, String name, Tower tower, int x, int y) {
         this.setImage(image);
         this.name = name;
         this.tower = tower;
         this.setX(x);
         this.setY(y);
-        this.price = price;
     }
 
     /*-------------------------------------------------------------------------------------------------------*/
@@ -61,8 +54,8 @@ public class ItemTower extends Button {
     public void buyTower(int i, int j){
         if(Map.Instance().isOnRoad(i,j) == false)
         {
-            if(Player.Instance().getCoin() >= price){
-                Player.Instance().setCoin(Player.Instance().getCoin() - price);
+            if(Player.Instance().getCoin() >= tower.getPrice()){
+                Player.Instance().setCoin(Player.Instance().getCoin() - tower.getPrice());
                 if(tower instanceof NormalTower) tower = new NormalTower((NormalTower)tower);
                 if(tower instanceof SniperTower) tower = new SniperTower((SniperTower)tower);
                 GameField.getTowerList().add(GameField.getInstance().createTower(i, j, tower));

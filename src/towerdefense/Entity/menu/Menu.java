@@ -33,6 +33,8 @@ public class Menu {
     public void addMenuItem(ItemTower item){
         itemMenuList.add(item);
     }
+    public void addButton(Button button){buttonList.add(button);}
+    public void removeButton(Button button){buttonList.remove(button);}
 
     private Menu()
     {
@@ -42,10 +44,10 @@ public class Menu {
 
     public void createItemTower(){
 
-        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile249.png"),"Nomal Tower", new NormalTower(),MAP_WIDTH,0,20));
+        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile249.png"),"Nomal Tower", new NormalTower(),MAP_WIDTH,0));
 
 
-        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile250.png"),"Sniper Tower", new SniperTower(),MAP_WIDTH+1,0, 10));
+        addMenuItem(new ItemTower(new Image(pathImg+"towerDefense_tile250.png"),"Sniper Tower", new SniperTower(),MAP_WIDTH+1,0));
 
         for(int i = 1; i <= 4; i++)
         {
@@ -82,7 +84,7 @@ public class Menu {
         listLabelInfor.get(0).setText("   " +tower.getName());
         listLabelInfor.get(1).setText("   DAMAGE:    " + tower.getTower().getDamage());
         listLabelInfor.get(2).setText("   RANGE:     " + tower.getTower().getRadius());
-        listLabelInfor.get(3).setText("   PRICE:     " + tower.getPrice());
+        listLabelInfor.get(3).setText("   PRICE:     " + tower.getTower().getPrice());
     }
 
     public void prinInforPlayer()

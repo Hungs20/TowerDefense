@@ -2,6 +2,7 @@ package towerdefense.Entity.tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import towerdefense.Entity.menu.Button.SellButton;
 
 import static towerdefense.config.SPEED_SNIPER_TOWER;
 import static towerdefense.config.pathImg;
@@ -16,9 +17,11 @@ public class SniperTower extends Tower {
         this.setSpeed(SPEED_SNIPER_TOWER);
         this.setRadius(200);
         this.setDamage(150);
+        this.setPrice(20);
         this.setImg(new Image(pathImg + "towerDefense_tile250.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile182.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile251.png"));
+        this.setSellButton(new SellButton(this));
     }
 
     @Override

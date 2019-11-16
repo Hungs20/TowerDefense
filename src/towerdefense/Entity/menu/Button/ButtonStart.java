@@ -27,7 +27,7 @@ public class ButtonStart extends Button {
     private ButtonStart(){
         this.setImage(new Image(pathImg + "start.png"));
         this.setX(MAP_WIDTH);
-        this.setY(6);
+        this.setY(7);
     }
 
     public static ButtonStart Instance()
