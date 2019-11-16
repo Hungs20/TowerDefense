@@ -23,6 +23,7 @@ import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.Spawner;
+import towerdefense.Sound.GameSound;
 
 import java.awt.*;
 import java.io.*;
@@ -55,11 +56,11 @@ public class GameStage extends Application {
         scene.setFill(Color.LIGHTGREY);
         stage.setScene(scene);
         stage.show();
-
         GameField.getInstance().setGc(gc);
          AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                GameSound.Instance().backgroundSound();
                 GameField.getInstance().render();
                 if(ButtonStart.Instance().isStart())
                 {
@@ -68,7 +69,6 @@ public class GameStage extends Application {
             }
         };
         timer.start();
-
     }
 
 

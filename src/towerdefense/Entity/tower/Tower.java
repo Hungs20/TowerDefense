@@ -23,6 +23,7 @@ import towerdefense.GameStage;
 import java.util.ArrayList;
 import java.util.List;
 import towerdefense.*;
+import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
@@ -114,7 +115,7 @@ public abstract class Tower extends GameEntity  {
     {
         this.setImg(newTower.getImg());
         this.speed = newTower.speed;
-        this.damage = newTower.speed;
+        this.damage = newTower.damage;
         this.radius = newTower.radius;
         this.price = newTower.price;
         this.bgImg = newTower.bgImg;
@@ -200,6 +201,7 @@ public abstract class Tower extends GameEntity  {
                     Bullet _bullet = this.createBullet();
                     bullets.add(_bullet);
                     resetSpeed();
+                    GameSound.Instance().shotingShound();
                 }
             }
         }

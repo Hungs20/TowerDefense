@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
@@ -48,12 +49,14 @@ public  abstract class Button {
 
     public void isClicked(){
         buttonImg.setOnMouseClicked(event -> {
+            GameSound.Instance().clickSound();
             actionClicked(event);
         });
     }
 
     public void isPressed(){
         buttonImg.setOnMousePressed(event -> {
+            GameSound.Instance().clickSound();
             actionPressed(event);
         });
     }

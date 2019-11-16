@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import towerdefense.Entity.menu.Button.Button;
 import towerdefense.Entity.menu.Menu;
@@ -20,12 +21,14 @@ import towerdefense.GameField;
 import towerdefense.GameMap.Map;
 import towerdefense.GameStage;
 import towerdefense.Player;
+import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
 public class ItemTower extends Button {
     private String name;
     private Tower tower;
+    private Circle rangle;
     private boolean isCreate;
 
     private  ImageView imgView; // cai nay dung de hien thi thap khi di chuot
@@ -59,6 +62,7 @@ public class ItemTower extends Button {
                 if(tower instanceof NormalTower) tower = new NormalTower((NormalTower)tower);
                 if(tower instanceof SniperTower) tower = new SniperTower((SniperTower)tower);
                 GameField.getTowerList().add(GameField.getInstance().createTower(i, j, tower));
+                GameSound.Instance().TurretBuildSound();
             }
         }
     }
@@ -68,6 +72,12 @@ public class ItemTower extends Button {
         if(root.getChildren().indexOf(imgView) < 0)
         {
             imgView = createImageView(getImage(),this.getX(),this.getY());
+            rangle = new Circle();
+            rangle.setRadius(tower.getRadius());
+            rangle.setCenterX(imgView.getX()+TILE_SIZE/2);
+            rangle.setCenterY(imgView.getY()+TILE_SIZE/2);
+            rangle.setFill(Color.RED);
+            rangle.setOpacity(0.4);
         }
     }
 
@@ -75,6 +85,7 @@ public class ItemTower extends Button {
     public void actionPressed(MouseEvent event) {
         isCreate = !isCreate;
         root.getChildren().addAll(imgView);
+        root.getChildren().addAll(rangle);
         imgView.setX(event.getX()-TILE_SIZE/2);
         imgView.setY(event.getY()-TILE_SIZE/2);
 
@@ -83,6 +94,8 @@ public class ItemTower extends Button {
             {
                 imgView.setX(event1.getX()-TILE_SIZE/2);
                 imgView.setY(event1.getY()-TILE_SIZE/2);
+                rangle.setCenterX(imgView.getX()+TILE_SIZE/2);
+                rangle.setCenterY(imgView.getY()+TILE_SIZE/2);
             }
         });
 
@@ -91,6 +104,7 @@ public class ItemTower extends Button {
             {
                 buyTower((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
                 root.getChildren().remove(imgView);
+                root.getChildren().remove(rangle);
                 isCreate=!isCreate;
             }
 

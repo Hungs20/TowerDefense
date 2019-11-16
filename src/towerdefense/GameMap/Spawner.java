@@ -49,7 +49,6 @@ public class Spawner extends TitleMap{
     }
 
     public void update(){
-
         addEnemy();
         if(enemyList.size() == 0){
             if(ButtonStart.Instance().isStart())
@@ -58,6 +57,7 @@ public class Spawner extends TitleMap{
                 Player.Instance().setLevel(Player.Instance().getLevel()+1);
                 //addEnemy();
             }
+            ButtonStart.Instance().setStart(false);
         }
     }
 
