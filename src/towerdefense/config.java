@@ -13,9 +13,9 @@ public class config {
     public static final Group root = new Group();
     public static final String pathImg = "file:src/towerdefense/data/";
     public static final int TILE_SIZE = 64;
-    public static final int MAP_WIDTH = 15;
+    public static final int MAP_WIDTH = 11;
     public static final int MAP_HEIGHT = 9;
-    public static final int MENU_WIDTH = 3;
+    public static final int MENU_WIDTH = 4;
 
     public static final int NUM_ENEMY = 7;
     public static final int SPEED_NORMAL_TOWER = 10;

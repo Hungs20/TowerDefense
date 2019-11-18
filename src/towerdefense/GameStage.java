@@ -18,10 +18,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
+import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.Spawner;
+import towerdefense.Sound.GameSound;
 
 import java.awt.*;
 import java.io.*;
@@ -54,20 +56,19 @@ public class GameStage extends Application {
         scene.setFill(Color.LIGHTGREY);
         stage.setScene(scene);
         stage.show();
-
         GameField.getInstance().setGc(gc);
          AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                GameSound.Instance().backgroundSound();
                 GameField.getInstance().render();
-                if(Menu.getInstance().isStart())
+                if(ButtonStart.Instance().isStart())
                 {
                     GameField.getInstance().update();
                 }
             }
         };
         timer.start();
-
     }
 
 

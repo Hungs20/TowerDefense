@@ -1,16 +1,8 @@
 package towerdefense;
 
-import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
-import towerdefense.Entity.enemy.NormalEnemy;
-import towerdefense.Entity.enemy.TankerEnemy;
-import towerdefense.Entity.menu.ItemTower;
+import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
@@ -33,7 +25,7 @@ public class GameField {
 
 
     public static List<Enemy> enemyList = new ArrayList<>();
-    public static List<GameEntity> towerList = new ArrayList<>();
+    public static List<Tower> towerList = new ArrayList<>();
 
     public static List<Land> landList = new ArrayList<>();
     public static List<Road> roadList = new ArrayList<>();
@@ -43,9 +35,9 @@ public class GameField {
 
 
 
-    public GraphicsContext getGc() {
+    /*public GraphicsContext getGc() {
         return gc;
-    }
+    }*/
 
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
@@ -63,6 +55,7 @@ public class GameField {
         Map.Instance().render(gc);
         enemyList.forEach(g -> g.render(gc));
         towerList.forEach(g -> g.render(gc));
+        Menu.getInstance().showMenu();
     }
 
     public Tower createTower(int i, int j, Tower _newTower){
@@ -74,12 +67,21 @@ public class GameField {
         return newTower;
     }
 
-    public static List<GameEntity> getTowerList() {
+    public static List<Tower> getTowerList() {
         return towerList;
     }
 
-    public void addTower(){
+    /*public void addTower(){
         Menu.getInstance().createItemTower();
         towerList.add(createTower(9,6, new NormalTower()));
+    }*/
+
+    public void newGame()
+    {
+        Player.Instance().newGame();
+        ButtonStart.Instance().setStart(false);
+        enemyList.clear();
+        towerList.forEach(g->root.getChildren().remove(g.getImgView()));
+        towerList.clear();
     }
 }

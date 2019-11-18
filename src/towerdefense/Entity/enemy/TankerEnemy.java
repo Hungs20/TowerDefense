@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import static towerdefense.config.pathImg;
 
 public class TankerEnemy extends Enemy {
-    private final double SPEED = 2;
+    private final double SPEED = 4;
     private final Direction DIRECTION = Direction.UP;
     private final int HEALTH = 300;
     private final int ARMOR = 100;

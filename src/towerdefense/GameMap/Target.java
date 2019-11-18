@@ -2,7 +2,9 @@ package towerdefense.GameMap;
 
 import javafx.scene.image.Image;
 import towerdefense.Entity.enemy.Enemy;
+import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
+import towerdefense.GameField;
 import towerdefense.Player;
 
 import java.util.ArrayList;
@@ -26,10 +28,6 @@ public class Target extends TitleMap{
         for(int i = 0; i < enemiInTarget.size(); i++){
             Player.Instance().setLifes(Player.Instance().getLifes()-1);
             enemyList.remove(enemiInTarget.get(i));
-            if(Player.Instance().getLifes() <= 0)
-            {
-                Menu.getInstance().gameOver();
-            }
         }
         enemiInTarget.clear();
     }

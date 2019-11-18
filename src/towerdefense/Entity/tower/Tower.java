@@ -15,12 +15,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
+import towerdefense.Entity.menu.Button.SellButton;
+import towerdefense.Entity.menu.Menu;
 import towerdefense.GameEntity;
 import towerdefense.GameStage;
 
 import java.util.ArrayList;
 import java.util.List;
 import towerdefense.*;
+import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
@@ -28,10 +31,13 @@ public abstract class Tower extends GameEntity  {
     private int speed;
     private double radius;
     private int damage;
+    private int price;
+
     private Image bgImg;
     private Image bulletImg;
     private ImageView imgView;
     private boolean isClick = false;
+    private SellButton sellButton;
 
 
     private double angle = 0;
@@ -40,11 +46,6 @@ public abstract class Tower extends GameEntity  {
     public ImageView getImgView() {
         return imgView;
     }
-
-    public void setImgView(ImageView imgView) {
-        this.imgView = imgView;
-    }
-
 
     public List<Bullet> getBulletList() {
         return bulletList;
@@ -60,10 +61,6 @@ public abstract class Tower extends GameEntity  {
 
     public void setAngle(double angle) {
         this.angle = angle;
-    }
-
-    public Image getBulletImg() {
-        return bulletImg;
     }
 
     public void setBulletImg(Image bulletImg) {
@@ -94,13 +91,39 @@ public abstract class Tower extends GameEntity  {
         this.radius = radius;
     }
 
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void setSellButton(SellButton sellButton) {
+        this.sellButton = sellButton;
     }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Tower(Tower newTower)
+    {
+        this.setImg(newTower.getImg());
+        this.speed = newTower.speed;
+        this.damage = newTower.damage;
+        this.radius = newTower.radius;
+        this.price = newTower.price;
+        this.bgImg = newTower.bgImg;
+        this.bulletImg = newTower.bulletImg;
+        this.sellButton = new SellButton(this);
+    }
+
+    public Tower(){}
 
 
     public Bullet createBullet(){
@@ -125,13 +148,18 @@ public abstract class Tower extends GameEntity  {
         gc.setLineWidth(2);
         gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
     }
+
+    public void remove(){
+        root.getChildren().remove(this.getImgView());
+        GameField.towerList.remove(this);
+    }
     @Override
     public void render(GraphicsContext gc) {
-
         if(isClick)
         {
             drawCircle(gc);
         }
+
         gc.drawImage(getBgImg(), getX(), getY());
         //drawRotatedImage(gc, this.getImg(), getAngle(), this.getX(), this.getY());
         if(root.getChildren().indexOf(this.imgView) < 0)
@@ -139,6 +167,13 @@ public abstract class Tower extends GameEntity  {
             this.imgView = createImageView(this.getImg(),this.getX(),this.getY());
             this.imgView.setOnMouseClicked(event -> {
                 isClick=!isClick;
+                if(isClick)
+                {
+                    Menu.getInstance().addButton(sellButton);
+                }else {
+                    sellButton.hide();
+                    Menu.getInstance().removeButton(sellButton);
+                }
             });
             root.getChildren().addAll(this.imgView);
         }
@@ -166,6 +201,7 @@ public abstract class Tower extends GameEntity  {
                     Bullet _bullet = this.createBullet();
                     bullets.add(_bullet);
                     resetSpeed();
+                    GameSound.Instance().shotingShound();
                 }
             }
         }
