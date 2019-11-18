@@ -74,6 +74,7 @@ public class Menu {
 
     public void showMenu()
     {
+
         itemMenuList.forEach(g -> g.render());
         buttonList.forEach(g->g.render());
     }
