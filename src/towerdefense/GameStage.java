@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.enemy.NormalEnemy;
@@ -37,7 +38,8 @@ public class GameStage extends Application {
     private GraphicsContext gc;
 
     public static MouseEvent event;
-
+    public static Scene scene;
+    public static Label infoLable;
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -45,12 +47,11 @@ public class GameStage extends Application {
         // Tao Canvas
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
-
-
-        root.getChildren().add(canvas);
+        infoLable = new Label();
+        root.getChildren().addAll(canvas, infoLable);
 
         // Tao scene
-        Scene scene = new Scene(root);
+         scene = new Scene(root);
 
         // Them scene vao stage
         scene.setFill(Color.LIGHTGREY);
@@ -58,8 +59,10 @@ public class GameStage extends Application {
         stage.show();
         GameField.getInstance().setGc(gc);
          AnimationTimer timer = new AnimationTimer() {
+
             @Override
             public void handle(long l) {
+                gc.clearRect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
                 GameSound.Instance().backgroundSound();
                 GameField.getInstance().render();
                 if(ButtonStart.Instance().isStart())

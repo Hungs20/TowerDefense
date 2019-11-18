@@ -56,6 +56,7 @@ public abstract class GameEntity  {
 
     public void setI(int i) {
         this.i = i;
+        this.x = i * TILE_SIZE;
     }
 
     public int getJ() {
@@ -64,6 +65,7 @@ public abstract class GameEntity  {
 
     public void setJ(int j) {
         this.j = j;
+        this.y = j * TILE_SIZE;
     }
 
     public int getX() {

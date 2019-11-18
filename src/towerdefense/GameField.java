@@ -1,6 +1,8 @@
 package towerdefense;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
@@ -48,7 +50,6 @@ public class GameField {
         Map.Instance().update();
         enemyList.forEach(GameEntity::update);
         towerList.forEach(GameEntity::update);
-        Menu.getInstance().prinInforPlayer();
     }
 
     public void render() {
@@ -56,6 +57,7 @@ public class GameField {
         enemyList.forEach(g -> g.render(gc));
         towerList.forEach(g -> g.render(gc));
         Menu.getInstance().showMenu();
+        Player.Instance().showInfoPlayer(gc);
     }
 
     public Tower createTower(int i, int j, Tower _newTower){

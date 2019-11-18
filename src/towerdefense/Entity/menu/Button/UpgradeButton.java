@@ -9,22 +9,22 @@ import towerdefense.Player;
 
 import static towerdefense.config.*;
 
-public class SellButton extends Button{
+public class UpgradeButton extends Button{
     private Tower tower;
-    public SellButton(Tower tower){
-        this.setImage(new Image(pathImg + "sellButton.png"));
-        this.setX(MAP_WIDTH);
+    public UpgradeButton(Tower tower){
+        this.setImage(new Image(pathImg + "upgradeButton.png"));
+        this.setX(MAP_WIDTH + 1);
         this.setY(4);
         this.tower = tower;
     }
 
     @Override
     public void actionClicked(MouseEvent event) {
-        tower.sell(tower.getI(), tower.getJ());
-        hide();
-        Menu.getInstance().removeButton(this);
-        tower.getUpgradeButton().hide();
-        Menu.getInstance().removeButton(tower.getUpgradeButton());
+        tower.upgrade() ;
+        if(tower.getLevel() >= 3) {
+            hide();
+            Menu.getInstance().removeButton(this);
+        }
     }
 
     @Override

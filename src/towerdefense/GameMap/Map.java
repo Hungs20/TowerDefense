@@ -33,6 +33,9 @@ public class Map {
         if(j >= MAP_HEIGHT) return true;
         return ( mapArr[j][i] == 1);
     }
+    public void setOnRoad(int i, int j, int value){
+        if(i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_HEIGHT) mapArr[j][i] = value;
+    }
 
     private void BFS_CreateRandomMap(){
         int[][] root = new int[MAP_HEIGHT][MAP_WIDTH];

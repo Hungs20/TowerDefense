@@ -1,30 +1,26 @@
 package towerdefense.Entity.tower;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
+import javafx.scene.text.Font;
 import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.menu.Button.SellButton;
+import towerdefense.Entity.menu.Button.UpgradeButton;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.GameEntity;
-import towerdefense.GameStage;
+import towerdefense.GameMap.Map;
 
 import java.util.ArrayList;
 import java.util.List;
 import towerdefense.*;
+import towerdefense.Point;
 import towerdefense.Sound.GameSound;
 
+import static towerdefense.GameStage.infoLable;
 import static towerdefense.config.*;
 
 public abstract class Tower extends GameEntity  {
@@ -32,13 +28,15 @@ public abstract class Tower extends GameEntity  {
     private double radius;
     private int damage;
     private int price;
-
+    private String name;
+    private int level = 0;
     private Image bgImg;
     private Image bulletImg;
     private ImageView imgView;
     private boolean isClick = false;
-    private SellButton sellButton;
-
+    private SellButton sellButton = new SellButton(this);
+    private UpgradeButton upgradeButton = new UpgradeButton(this);
+    private Label info = new Label();
 
     private double angle = 0;
     private List<Bullet> bulletList = new ArrayList<>();
@@ -49,6 +47,22 @@ public abstract class Tower extends GameEntity  {
 
     public List<Bullet> getBulletList() {
         return bulletList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void setBulletList(List<Bullet> bulletList) {
@@ -99,8 +113,20 @@ public abstract class Tower extends GameEntity  {
         return damage;
     }
 
+    public SellButton getSellButton() {
+        return sellButton;
+    }
+
+    public UpgradeButton getUpgradeButton() {
+        return upgradeButton;
+    }
+
     public void setSellButton(SellButton sellButton) {
         this.sellButton = sellButton;
+    }
+
+    public void setUpgradeButton(UpgradeButton upgradeButton) {
+        this.upgradeButton = upgradeButton;
     }
 
     public void setPrice(int price) {
@@ -120,7 +146,7 @@ public abstract class Tower extends GameEntity  {
         this.price = newTower.price;
         this.bgImg = newTower.bgImg;
         this.bulletImg = newTower.bulletImg;
-        this.sellButton = new SellButton(this);
+        this.level = 0;
     }
 
     public Tower(){}
@@ -143,6 +169,59 @@ public abstract class Tower extends GameEntity  {
 
     public abstract void resetSpeed();
 
+    public String getInfo(){
+        String info = "";
+        info += "Name : " + name + "\n";
+        info += "Dame : " + damage + "\n";
+        info += "Range : " + radius + "\n";
+        if(level > 0) info += "Level : " + level + "\n";
+        if(level == 0) info += "Buy : " + price + "$";
+        else {
+            info += "Upgrade : " + 70 * price / 100 + "$\n";
+            info += "Sell : " + 70 * price / 100 + "$";
+        }
+        return info;
+    }
+    public void showInfo(){
+        infoLable.setText(getInfo());
+        infoLable.setLayoutX((MAP_WIDTH + 0.2) * TILE_SIZE);
+        infoLable.setLayoutY(2 * TILE_SIZE);
+        infoLable.setVisible(true);
+        infoLable.setTextFill(Color.BLUE);
+        infoLable.setFont(Font.font("Consolas", 15));
+    }
+
+    public boolean buy(int i, int j){
+
+        if(Map.Instance().isOnRoad(i,j)) return false;
+        if(Player.Instance().getCoin() >= this.price){
+            Player.Instance().setCoin(Player.Instance().getCoin() - this.price);
+            this.setI(i);
+            this.setJ(j);
+            this.level = 1;
+            GameField.getTowerList().add(this);
+            GameSound.Instance().TurretBuildSound();
+            Map.Instance().setOnRoad(i, j, 1);
+            return true;
+        }
+        return false;
+    }
+    public void sell(int i, int j){
+        Player.Instance().setCoin(Player.Instance().getCoin() + 70 * this.price / 100);
+        Map.Instance().setOnRoad(i, j, 0);
+        remove();
+    }
+    public void upgrade(){
+        if(level >= 3) return;
+        if(Player.Instance().getCoin() < 70 * this.price / 100) return;
+        this.level++;
+        this.damage = this.damage + this.level * this.damage / 5;
+        this.radius = this.radius + this.level * this.radius / 5;
+        this.speed = this.speed + this.level * this.speed / 5;
+        Player.Instance().setCoin(Player.Instance().getCoin() - 70* this.price / 100);
+        this.price = this.price + 70 * this.price / 100;
+
+    }
     public void drawCircle(GraphicsContext gc){
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
@@ -158,6 +237,7 @@ public abstract class Tower extends GameEntity  {
         if(isClick)
         {
             drawCircle(gc);
+            showInfo();
         }
 
         gc.drawImage(getBgImg(), getX(), getY());
@@ -170,9 +250,12 @@ public abstract class Tower extends GameEntity  {
                 if(isClick)
                 {
                     Menu.getInstance().addButton(sellButton);
+                    if(level < 3) Menu.getInstance().addButton(upgradeButton);
                 }else {
                     sellButton.hide();
+                    upgradeButton.hide();
                     Menu.getInstance().removeButton(sellButton);
+                    Menu.getInstance().removeButton(upgradeButton);
                 }
             });
             root.getChildren().addAll(this.imgView);

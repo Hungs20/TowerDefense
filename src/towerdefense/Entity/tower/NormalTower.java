@@ -21,19 +21,17 @@ import java.util.List;
 import static towerdefense.config.*;
 
 public class NormalTower extends Tower {
-    public NormalTower(NormalTower normalTower)
-    {
-        super(normalTower);
-    }
+
     public NormalTower(){
         this.setSpeed(SPEED_NORMAL_TOWER);
         this.setRadius(150);
         this.setDamage(100);
         this.setPrice(15);
+        this.setName("Normal Tower");
+        this.setLevel(0);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile295.png"));
-        this.setSellButton(new SellButton(this));
     }
 
     @Override
