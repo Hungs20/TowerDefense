@@ -45,6 +45,7 @@ public abstract class GameEntity  {
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
     public void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
+        if(image == null) return;
         gc.save(); // saves the current state on stack, including the current transform
         rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
         gc.drawImage(image, tlpx, tlpy);

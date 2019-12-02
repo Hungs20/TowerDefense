@@ -99,11 +99,11 @@ public abstract class Enemy extends GameEntity {
     public void render(GraphicsContext gc) {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
-        gc.strokeRect(this.getX(),this.getY(),TILE_SIZE,5);
+        gc.strokeRect(this.getX() + TILE_SIZE/4,this.getY(),TILE_SIZE/2,5);
         gc.setFill(Color.BLUE);
-        gc.fillRect(this.getX(),this.getY(),TILE_SIZE,5);
+        gc.fillRect(this.getX() + TILE_SIZE/4,this.getY(),TILE_SIZE/2,5);
         gc.setFill(Color.RED);
-        gc.fillRect(this.getX(),this.getY(),TILE_SIZE*(this.getHealth()/getMaxHealth()),5);
+        gc.fillRect(this.getX() + TILE_SIZE/4,this.getY(),TILE_SIZE*(this.getHealth()/getMaxHealth())/2,5);
         drawRotatedImage(gc, this.getImg(), this.direction.getDegree(), this.getX(), this.getY());
         drawRotatedImage(gc, this.getGunImg(), this.direction.getDegree(), this.getX(), this.getY());
 

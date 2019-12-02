@@ -17,12 +17,24 @@ public class config {
     public static final int MAP_HEIGHT = 8;
     public static final int MENU_WIDTH = 3;
 
-    public static final int NUM_ENEMY = 7;
-    public static final int SPEED_NORMAL_TOWER = 10;
-    public static final int SPEED_SNIPER_TOWER = 5;
+    public static final int NUM_ENEMY = 12;
+    public static final int SPEED_NORMAL_TOWER = 15;
+    public static final int SPEED_SNIPER_TOWER = 13;
 
     public static final int SCREEN_WIDTH = TILE_SIZE * MAP_WIDTH + TILE_SIZE * MENU_WIDTH;
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAP_HEIGHT;
+
+    // config menu button
+    public static final int START_MENU = 0;
+    public static final int GAME_START = 1;
+    public static final int LEVEL_PANEL = 2;
+    public static final int HELP_PANEL = 3;
+    public static final int GAME_EXIT = 4;
+
+    // config game
+    public static int levelMap = 0;
+    public static boolean isSound = true;
+
     /*
     public static final String[][] MAP_SPRITES = new String[][] {
             { "024", "024", "003", "047", "047", "047", "004", "024", "024", "024" , "024", "024", "024"},

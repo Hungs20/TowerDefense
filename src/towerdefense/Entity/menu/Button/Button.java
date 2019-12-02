@@ -9,7 +9,7 @@ import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
-public  abstract class Button {
+public abstract class Button {
     private Image image;
     private ImageView buttonImg;
     private int x;

@@ -27,13 +27,13 @@ public class Map {
         if(instance == null) instance = new Map();
         return instance;
     }
-    public boolean isOnRoad(int i, int j)
+    public boolean isOnLand(int i, int j)
     {
-        if(i >= MAP_WIDTH) return true;
-        if(j >= MAP_HEIGHT) return true;
-        return ( mapArr[j][i] == 1);
+        if(i >= MAP_WIDTH) return false;
+        if(j >= MAP_HEIGHT) return false;
+        return ( mapArr[j][i] == 0);
     }
-    public void setOnRoad(int i, int j, int value){
+    public void setOnLand(int i, int j, int value){
         if(i >= 0 && i < MAP_WIDTH && j >= 0 && j < MAP_HEIGHT) mapArr[j][i] = value;
     }
 
@@ -99,6 +99,7 @@ public class Map {
             int j = (int)(Math.random() * (MAP_HEIGHT - 1));
             if(mapArr[j][i] == 0){
                 String item = String.valueOf((int)(Math.random() * (endOtherTile - startOtherTile)) + startOtherTile);
+                otherTileList.add(new Land(i, j));
                 otherTileList.add(new TitleMap(i, j, new Image(pathImg + "towerDefense_tile" + item + ".png")));
                 mapArr[j][i] = 2;
                 numOtherTile--;
@@ -106,7 +107,7 @@ public class Map {
         }
         for(int i = 0; i < MAP_HEIGHT; i++){
             for(int j = 0; j < MAP_WIDTH; j++){
-                if(mapArr[i][j] == 0 || mapArr[i][j] == 2) landList.add(new Land(j, i));
+                if(mapArr[i][j] == 0) landList.add(new Land(j, i));
             }
         }
     }

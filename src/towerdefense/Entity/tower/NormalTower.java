@@ -25,7 +25,7 @@ public class NormalTower extends Tower {
     public NormalTower(){
         this.setSpeed(SPEED_NORMAL_TOWER);
         this.setRadius(150);
-        this.setDamage(100);
+        this.setDamage(10);
         this.setPrice(15);
         this.setName("Normal Tower");
         this.setLevel(0);

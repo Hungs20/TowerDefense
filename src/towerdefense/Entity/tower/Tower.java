@@ -193,7 +193,7 @@ public abstract class Tower extends GameEntity  {
 
     public boolean buy(int i, int j){
 
-        if(Map.Instance().isOnRoad(i,j)) return false;
+        if(!Map.Instance().isOnLand(i,j)) return false;
         if(Player.Instance().getCoin() >= this.price){
             Player.Instance().setCoin(Player.Instance().getCoin() - this.price);
             this.setI(i);
@@ -201,14 +201,14 @@ public abstract class Tower extends GameEntity  {
             this.level = 1;
             GameField.getTowerList().add(this);
             GameSound.Instance().TurretBuildSound();
-            Map.Instance().setOnRoad(i, j, 1);
+            Map.Instance().setOnLand(i, j, 1);
             return true;
         }
         return false;
     }
     public void sell(int i, int j){
         Player.Instance().setCoin(Player.Instance().getCoin() + 70 * this.price / 100);
-        Map.Instance().setOnRoad(i, j, 0);
+        Map.Instance().setOnLand(i, j, 0);
         remove();
     }
     public void upgrade(){
@@ -294,7 +294,7 @@ public abstract class Tower extends GameEntity  {
             if(bullet == null) break;
             if(bullet.getDistance() > bullet.getMaxDistance() ) bullet.setIsHas(false);
             for(int j = GameField.enemyList.size() - 1; j >= 0; j--){
-                Enemy enemy = (Enemy) GameField.enemyList.get(j);
+                Enemy enemy = GameField.enemyList.get(j);
 
                 if(enemy == null) break;
                 if(bullet.isCollision(enemy)) {
@@ -306,7 +306,7 @@ public abstract class Tower extends GameEntity  {
                     bullet.setIsHas(false);
                 }
             }
-            if(bullet.getIsHas() == false) bullets.remove(i);
+            if(!bullet.getIsHas()) bullets.remove(i);
         }
 
         if(bullets != null) bullets.forEach(GameEntity::update);

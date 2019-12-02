@@ -1,5 +1,6 @@
 package towerdefense.Entity.menu.Button;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -8,8 +9,11 @@ import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.SniperTower;
 import towerdefense.Entity.tower.Tower;
+import towerdefense.GameMap.Land;
 
 
+import static towerdefense.GameField.landList;
+import static towerdefense.GameField.roadList;
 import static towerdefense.config.*;
 
 public class ItemTower extends Button {
@@ -66,16 +70,18 @@ public class ItemTower extends Button {
                 imgView.setY(event1.getY()-TILE_SIZE/2);
                 rangle.setCenterX(imgView.getX()+TILE_SIZE/2);
                 rangle.setCenterY(imgView.getY()+TILE_SIZE/2);
+
             }
         });
 
         root.setOnMouseClicked(event1 -> {
             if(root.getChildren().indexOf(imgView) >= 0)
             {
-                if(tower instanceof NormalTower) tower = new NormalTower();
-                if(tower instanceof SniperTower) tower = new SniperTower();
+                Tower newTower = tower;
+                if(tower instanceof NormalTower) newTower = new NormalTower();
+                if(tower instanceof SniperTower) newTower = new SniperTower();
 
-                tower.buy((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
+                newTower.buy((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
                 root.getChildren().remove(imgView);
                 root.getChildren().remove(rangle);
                 isCreate=!isCreate;
