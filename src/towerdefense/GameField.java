@@ -1,12 +1,9 @@
 package towerdefense;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
-import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.*;
 
@@ -56,23 +53,11 @@ public class GameField {
         Player.Instance().showInfoPlayer(gc);
     }
 
-   /* public Tower createTower(int i, int j, Tower _newTower){
-        Tower newTower = _newTower;
-        newTower.setI(i);
-        newTower.setJ(j);
-        newTower.setX(newTower.getI() * TILE_SIZE);
-        newTower.setY(newTower.getJ() * TILE_SIZE);
-        return newTower;
-    }*/
 
     public static List<Tower> getTowerList() {
         return towerList;
     }
 
-    /*public void addTower(){
-        Menu.getInstance().createItemTower();
-        towerList.add(createTower(9,6, new NormalTower()));
-    }*/
 
     public void newGame()
     {

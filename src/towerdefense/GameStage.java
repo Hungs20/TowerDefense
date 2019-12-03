@@ -10,6 +10,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +32,7 @@ import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.Spawner;
 import towerdefense.Sound.GameSound;
+import towerdefense.Sound.Sound;
 
 import java.awt.*;
 import java.io.*;
@@ -47,8 +49,7 @@ public class GameStage extends Application {
     private Scene scene;
     public static Label infoLable;
     public static int choose;// 1 start 2
-
-
+    private Sound bgSound = new Sound("src/towerdefense/Sound/sounds/8_music.mp3");
     @Override
     public void start(Stage stage) throws FileNotFoundException {
         stage.setTitle("Tower Defense");
@@ -78,12 +79,22 @@ public class GameStage extends Application {
         stage.setScene(scene);
         stage.show();
         GameField.getInstance().setGc(gc);
-        GameSound.Instance().backgroundSound();
+        //GameSound.Instance().backgroundSound();
 
+        ImageView iconSound = new ImageView(new Image(pathImg + "sound-off.png"));
+        iconSound.setX(0);iconSound.setY(0);
+        //root.getChildren().add(iconSound);
+
+        ///Play background sound
+        bgSound.play();
+
+        ///init menu
         StartMenu startMenu = new StartMenu();
         HelpPanel helpPanel = new HelpPanel();
         LevelPanel levelPanel = new LevelPanel();
-         AnimationTimer timer = new AnimationTimer() {
+
+
+        AnimationTimer timer = new AnimationTimer() {
 
             @Override
             public void handle(long l) {
@@ -109,6 +120,13 @@ public class GameStage extends Application {
                     Platform.exit();
                 }
 
+                if(root.getChildren().indexOf(iconSound) < 0) root.getChildren().add(iconSound);
+                iconSound.setOnMouseClicked(eventSound ->{
+                    isSound = !isSound;
+                    System.out.println(isSound);
+                    if(isSound) iconSound.setImage(new Image(pathImg + "sound-off.png"));
+                    else iconSound.setImage(new Image(pathImg + "sound-on.png"));
+                });
 
               /*  if(ButtonStart.Instance().isStart())
                 {
@@ -117,6 +135,7 @@ public class GameStage extends Application {
             }
         };
         timer.start();
+
     }
 
 

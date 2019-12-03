@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import towerdefense.GameStage;
+import towerdefense.Sound.GameSound;
 
 import static towerdefense.config.*;
 
@@ -52,19 +53,23 @@ public class StartMenu {
     public void updatẹ(){
 
         startButton.setOnMouseClicked(event -> {
+            GameSound.Instance().clickSound();
             clearButton();
             GameStage.choose = GAME_START; //Start Game
         });
 
         settingButton.setOnMouseClicked(event -> {
+            GameSound.Instance().clickSound();
             clearButton();
             GameStage.choose = LEVEL_PANEL;
         });
         helpButton.setOnMouseClicked(event -> {
+            GameSound.Instance().clickSound();
             clearButton();
             GameStage.choose = HELP_PANEL;
         });
         exitButton.setOnMouseClicked(event -> {
+            GameSound.Instance().clickSound();
             clearButton();
             GameStage.choose = GAME_EXIT; //Exit game
         });

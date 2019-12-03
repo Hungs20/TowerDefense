@@ -3,6 +3,7 @@ package towerdefense.Sound;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import towerdefense.config;
 
 import java.io.File;
 
@@ -41,6 +42,9 @@ public class GameSound {
     }
 
     public void backgroundSound(){
+        if(config.isSound) backgroundSoundPlayer.setVolume(0.5);
+        else backgroundSoundPlayer.setVolume(0);
+
         backgroundSoundPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 backgroundSoundPlayer.seek(Duration.ZERO);
@@ -50,11 +54,15 @@ public class GameSound {
     }
 
     public void shotingShound(){
+        if(config.isSound) shotingShoundPlayer.setVolume(0.5);
+        else shotingShoundPlayer.setVolume(0);
         shotingShoundPlayer.play();
         shotingShoundPlayer.seek(Duration.ZERO);
     }
 
     public void TurretBuildSound(){
+        if(config.isSound) turretBuildSoundPlayer.setVolume(0.5);
+        else turretBuildSoundPlayer.setVolume(0);
         turretBuildSoundPlayer.play();
         turretBuildSoundPlayer.seek(Duration.ZERO);
     }
