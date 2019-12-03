@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'KenVector Future';
+    src: url('kenvector_future.ttf');
+}
+
+.button {
+
+    -fx-font-family: Consolas;
+    -fx-font-size: 20px;
+    -fx-background-color: #ffee78;
+    -fx-background-radius: 15px;
+    -fx-text-fill: red;
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(255, 145, 33, 0.87);
+    -fx-border-width: 2px;
+    -fx-border-style: none;
+    -fx-padding: 5px 25px;
+    -fx-max-width: 150px;
+    -fx-min-width: 130px;
+    -fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 5);
+
+}
+.button:hover {
+    -fx-background-color: #1861ff;
+    -fx-text-fill: #eeffde;
+}
+.button:pressed {
+    -fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 4);
+    -fx-padding: 4px 23px;
+}
+.button:focused {
+
+}
+.label {
+
+    -fx-text-fill: white;
+    -fx-padding: 5.0 10.0 5.0 10.0;
+    -fx-font-weight: bold;
+    -fx-font-size:  15.0px;
+    -fx-effect:dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 ) ;
+}
+#helpPanel{
+    -fx-font-family: Consolas;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+#levelPanel{
+    -fx-font-family: Consolas;
+    -fx-font-size: 20px;
+    -fx-background-color: #cbffa8;
+    -fx-background-radius: 15px;
+    -fx-text-fill: #0b0cff;
+    -fx-border-radius: 15px;
+    -fx-border-color: rgba(134, 255, 37, 0.87);
+    -fx-border-width: 2px;
+    -fx-border-style: none;
+    -fx-padding: 7px 35px;
+    -fx-max-width: 350px;
+    -fx-min-width: 200px;
+    -fx-effect: dropshadow(three-pass-box, #79ffc8, 10, 0, 0, 5);
+}
+#levelPanel:hover {
+    -fx-background-color: #ff1610;
+    -fx-text-fill: #eeffde;
+}
+#levelPanel:pressed {
+    -fx-effect: dropshadow(three-pass-box, #79ffc8, 10, 0, 0, 4);
+    -fx-padding: 5px 33px;
+}
+
+#title{
+    -fx-font-family: Consolas;
+    -fx-text-fill: orange;
+    -fx-font-size: 60px;
+}
