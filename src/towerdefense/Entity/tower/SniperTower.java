@@ -16,7 +16,7 @@ public class SniperTower extends Tower {
     public SniperTower(){
         this.setSpeed(SPEED_SNIPER_TOWER);
         this.setRadius(200);
-        this.setDamage(15);
+        this.setDamage(105);
         this.setPrice(20);
         this.setName("Sniper Tower");
         this.setLevel(0);

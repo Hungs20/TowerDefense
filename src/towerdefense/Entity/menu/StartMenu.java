@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import towerdefense.GameStage;
 import towerdefense.Sound.GameSound;
+import towerdefense.Sound.Sound;
 
 import static towerdefense.config.*;
 
@@ -16,7 +17,7 @@ public class StartMenu {
     private Button settingButton = new Button();
     private Button helpButton = new Button();
     private ImageView background = new ImageView();
-
+    private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public StartMenu(){
         background.setImage(new Image(pathImg + "background.png"));
 
@@ -53,23 +54,23 @@ public class StartMenu {
     public void updatẹ(){
 
         startButton.setOnMouseClicked(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             clearButton();
             GameStage.choose = GAME_START; //Start Game
         });
 
         settingButton.setOnMouseClicked(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             clearButton();
             GameStage.choose = LEVEL_PANEL;
         });
         helpButton.setOnMouseClicked(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             clearButton();
             GameStage.choose = HELP_PANEL;
         });
         exitButton.setOnMouseClicked(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             clearButton();
             GameStage.choose = GAME_EXIT; //Exit game
         });

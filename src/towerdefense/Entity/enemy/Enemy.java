@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import towerdefense.Animation;
 import towerdefense.GameEntity;
 import towerdefense.Player;
 import towerdefense.Point;
@@ -21,6 +22,11 @@ public abstract class Enemy extends GameEntity {
     private int armor;
     private Image gunImg;
     private int gunRotation;
+    private ImageView explosion = new ImageView();
+
+    public ImageView getExplosion() {
+        return explosion;
+    }
 
     public abstract double getMaxHealth();
 
@@ -106,6 +112,7 @@ public abstract class Enemy extends GameEntity {
         gc.fillRect(this.getX() + TILE_SIZE/4,this.getY(),TILE_SIZE*(this.getHealth()/getMaxHealth())/2,5);
         drawRotatedImage(gc, this.getImg(), this.direction.getDegree(), this.getX(), this.getY());
         drawRotatedImage(gc, this.getGunImg(), this.direction.getDegree(), this.getX(), this.getY());
+
 
     }
 

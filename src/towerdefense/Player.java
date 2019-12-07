@@ -11,17 +11,17 @@ import javafx.scene.text.Font;
 import static towerdefense.config.*;
 
 public class Player {
+    private final int NUM_HEART = 5;
     private int level;
     private int coin;
     private int lifes;
 
     private Label infoPlayer = new Label();
     private static Player instance;
-    private ImageView heart;
     private Player(){
         level = 0;
         coin= 100;
-        lifes = 5;
+        lifes = NUM_HEART;
     }
 
     public static Player Instance()
@@ -38,20 +38,25 @@ public class Player {
     }
     public String getInfo(){
         String info = "";
-        info += "Level : " + level + "\n";
-        info += "Coin : " + coin + "\n";
+        info += coin + "\n";
         return info;
     }
     public void showInfoPlayer(GraphicsContext gc){
         infoPlayer.setText(getInfo());
-        infoPlayer.setLayoutX((MAP_WIDTH + 0.2) * TILE_SIZE);
-        infoPlayer.setLayoutY(5 * TILE_SIZE);
-        infoPlayer.setTextFill(Color.GREEN);
-        infoPlayer.setFont(Font.font("Consolas", 16));
+        infoPlayer.setLayoutY(1);
+        infoPlayer.setLayoutX((MAP_WIDTH - 1) * TILE_SIZE);
+        infoPlayer.setId("player");
+
+        Image coinIcon = new Image(pathImg + "money.png");
+        gc.drawImage(coinIcon, (MAP_WIDTH - 1.5) * TILE_SIZE, 0);
 
         Image heart = new Image(pathImg + "heart.png");
+        Image heart_die = new Image(pathImg + "heart-die.png");
+        for(int i = 0; i < NUM_HEART; i++){
+            gc.drawImage(heart_die, (MAP_WIDTH - 2) * TILE_SIZE  - i * heart_die.getWidth(), 0);
+        }
         for(int i = 0; i < lifes; i++){
-            gc.drawImage(heart, (MAP_WIDTH + 0.2) * TILE_SIZE  + i * heart.getWidth(), 6 * TILE_SIZE);
+            gc.drawImage(heart, (MAP_WIDTH - 2) * TILE_SIZE  - i * heart.getWidth(), 0);
         }
         if(root.getChildren().indexOf(infoPlayer) < 0) root.getChildren().addAll(infoPlayer);
     }

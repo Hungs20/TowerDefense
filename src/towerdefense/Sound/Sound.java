@@ -27,7 +27,7 @@ public class Sound {
         player.seek(Duration.ZERO);
     }
     public void playBackground(){
-        if(config.isSound) player.setVolume(1);
+        if(config.isSound) player.setVolume(0.3);
         else player.setVolume(0);
         player.setOnEndOfMedia(new Runnable() {
             public void run() {

@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import towerdefense.GameStage;
+import towerdefense.Sound.Sound;
 
 import static towerdefense.config.*;
 
@@ -14,6 +15,7 @@ public class HelpPanel {
     private String helpText = new String();
     private Button backButton = new Button();
     private Label title = new Label();
+    private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public HelpPanel(){
         background.setImage(new Image(pathImg + "blackBackground.jpg"));
 
@@ -51,6 +53,7 @@ public class HelpPanel {
     public void update(){
         backButton.setOnMouseClicked(event -> {
             clear();
+            clickSound.play();
             GameStage.choose = START_MENU;
         });
     }

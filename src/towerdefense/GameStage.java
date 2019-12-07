@@ -85,20 +85,26 @@ public class GameStage extends Application {
         iconSound.setX(0);iconSound.setY(0);
         //root.getChildren().add(iconSound);
 
-        ///Play background sound
-        bgSound.play();
-
         ///init menu
         StartMenu startMenu = new StartMenu();
         HelpPanel helpPanel = new HelpPanel();
         LevelPanel levelPanel = new LevelPanel();
 
+        if(root.getChildren().indexOf(iconSound) < 0) root.getChildren().add(iconSound);
+
+        iconSound.setOnMouseClicked(eventSound ->{
+            isSound = !isSound;
+            System.out.println(isSound);
+            if(isSound) iconSound.setImage(new Image(pathImg + "sound-off.png"));
+            else iconSound.setImage(new Image(pathImg + "sound-on.png"));
+        });
 
         AnimationTimer timer = new AnimationTimer() {
 
             @Override
             public void handle(long l) {
                 gc.clearRect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+
 
                 if(choose == START_MENU){
                     startMenu.render();
@@ -119,15 +125,17 @@ public class GameStage extends Application {
                 else if(choose == GAME_EXIT){
                     Platform.exit();
                 }
+                if(root.getChildren().lastIndexOf(iconSound) < root.getChildren().size() - 1) {
+                    root.getChildren().removeAll(iconSound);
+                    root.getChildren().add(iconSound);
+                }
 
-                if(root.getChildren().indexOf(iconSound) < 0) root.getChildren().add(iconSound);
-                iconSound.setOnMouseClicked(eventSound ->{
-                    isSound = !isSound;
-                    System.out.println(isSound);
-                    if(isSound) iconSound.setImage(new Image(pathImg + "sound-off.png"));
-                    else iconSound.setImage(new Image(pathImg + "sound-on.png"));
-                });
 
+
+                ///Play background sound
+
+
+                bgSound.playBackground();
               /*  if(ButtonStart.Instance().isStart())
                 {
 

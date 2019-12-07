@@ -22,8 +22,6 @@ import static towerdefense.config.*;
 public class Menu {
     private static Menu instance;
     private List<ItemTower> itemMenuList = new ArrayList<>();
-    private List<Label> listLabelInfor = new ArrayList<>();
-    private Label labelPlayer;
     private List<Button> buttonList = new ArrayList<>();
     public static Menu getInstance()
     {
@@ -61,15 +59,5 @@ public class Menu {
         buttonList.forEach(g->g.render());
     }
 
-    public void printInfor(ItemTower tower)
-    {
-        Text info = new Text();
-        info.setText(tower.getTower().getInfo());
-    }
 
-   /* public void prinInforPlayer()
-    {
-        labelPlayer.setTextFill(Color.RED);
-        labelPlayer.setText("Life: " + Player.Instance().getLifes() + "      Coin: " + Player.Instance().getCoin() + "         Level: " + Player.Instance().getLevel());
-    }*/
 }

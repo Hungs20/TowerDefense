@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
@@ -37,7 +38,6 @@ public abstract class Tower extends GameEntity  {
     private SellButton sellButton = new SellButton(this);
     private UpgradeButton upgradeButton = new UpgradeButton(this);
     private Label info = new Label();
-
     private double angle = 0;
     private List<Bullet> bulletList = new ArrayList<>();
 
@@ -191,6 +191,7 @@ public abstract class Tower extends GameEntity  {
         infoLable.setFont(Font.font("Consolas", 15));
     }
 
+
     public boolean buy(int i, int j){
 
         if(!Map.Instance().isOnLand(i,j)) return false;
@@ -226,6 +227,8 @@ public abstract class Tower extends GameEntity  {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
+
+
     }
 
     public void remove(){
@@ -234,12 +237,10 @@ public abstract class Tower extends GameEntity  {
     }
     @Override
     public void render(GraphicsContext gc) {
-        if(isClick)
-        {
+        if(isClick){
             drawCircle(gc);
             showInfo();
         }
-
         gc.drawImage(getBgImg(), getX(), getY());
         //drawRotatedImage(gc, this.getImg(), getAngle(), this.getX(), this.getY());
         if(root.getChildren().indexOf(this.imgView) < 0)
@@ -279,8 +280,8 @@ public abstract class Tower extends GameEntity  {
 
             double distance = enemyPoint.getDistance(towerPoint);
             if(distance <= this.getRadius()){
-                setAngle(_angle + 90);
                 if(this.getSpeed() <= 0) {
+                    setAngle(_angle + 90);
                     Bullet _bullet = this.createBullet();
                     bullets.add(_bullet);
                     resetSpeed();
@@ -302,6 +303,17 @@ public abstract class Tower extends GameEntity  {
                     if(enemy.getHealth() <= 0) {
                         Player.Instance().setCoin(Player.Instance().getCoin()+enemy.getReward());
                         GameField.enemyList.remove(enemy);
+
+                        ///Animation explosion
+
+                        enemy.getExplosion().setX(enemy.getX());
+                        enemy.getExplosion().setY(enemy.getY());
+                        Animation animation = new Animation(enemy.getExplosion(), new Image(pathImg + "exp.png"), 4, 4, 16, 64, 64, 60);
+                        root.getChildren().add(enemy.getExplosion());
+                        animation.start();
+
+                           // if (root.getChildren().indexOf(enemy.getExplosion()) >= 0) root.getChildren().remove(enemy.getExplosion());
+
                     }
                     bullet.setIsHas(false);
                 }
