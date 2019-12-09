@@ -7,10 +7,6 @@ import static towerdefense.config.*;
 import static towerdefense.config.pathImg;
 
 public class RocketTower extends Tower {
-    public RocketTower(SniperTower sniperTower)
-    {
-        super(sniperTower);
-    }
 
     public RocketTower(){
         this.setSpeed(SPEED_ROCKET_TOWER);
