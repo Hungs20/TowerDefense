@@ -55,6 +55,7 @@ public class GameStage extends Application {
         stage.setTitle("Tower Defense");
         stage.getIcons().add(new Image(pathImg + "icon.png"));
 
+
         // Tao Canvas
 
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -111,6 +112,7 @@ public class GameStage extends Application {
                     startMenu.updatẹ();
                 }
                 else if(choose == GAME_START) {
+                    stage.setMinWidth(SCREEN_WIDTH+150);
                     GameField.getInstance().render();
                     GameField.getInstance().update();
                 }

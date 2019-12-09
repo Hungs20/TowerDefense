@@ -34,6 +34,7 @@ public abstract class Tower extends GameEntity  {
     private Image bgImg;
     private Image bulletImg;
     private ImageView imgView;
+    private List<ImageView> updates = new ArrayList<>();
     private boolean isClick = false;
     private SellButton sellButton = new SellButton(this);
     private UpgradeButton upgradeButton = new UpgradeButton(this);
@@ -227,8 +228,6 @@ public abstract class Tower extends GameEntity  {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
-
-
     }
 
     public void remove(){
@@ -250,6 +249,11 @@ public abstract class Tower extends GameEntity  {
                 isClick=!isClick;
                 if(isClick)
                 {
+                    for(int i = 0; i < GameField.towerList.size(); i++){
+                        if(this != GameField.towerList.get(i)){
+                            GameField.towerList.get(i).isClick = false;
+                        }
+                    }
                     Menu.getInstance().addButton(sellButton);
                     if(level < 3) Menu.getInstance().addButton(upgradeButton);
                 }else {
@@ -311,10 +315,10 @@ public abstract class Tower extends GameEntity  {
                         Animation animation = new Animation(enemy.getExplosion(), new Image(pathImg + "exp.png"), 4, 4, 16, 64, 64, 60);
                         root.getChildren().add(enemy.getExplosion());
                         animation.start();
-
                            // if (root.getChildren().indexOf(enemy.getExplosion()) >= 0) root.getChildren().remove(enemy.getExplosion());
 
                     }
+
                     bullet.setIsHas(false);
                 }
             }
