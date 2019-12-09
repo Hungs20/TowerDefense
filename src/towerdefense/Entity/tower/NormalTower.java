@@ -47,6 +47,5 @@ public class NormalTower extends Tower {
     @Override
     public void update() {
         super.update();
-
     }
 }

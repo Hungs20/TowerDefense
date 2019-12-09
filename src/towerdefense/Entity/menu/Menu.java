@@ -11,6 +11,7 @@ import towerdefense.Entity.menu.Button.ButtonGameOver;
 import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Button.ItemTower;
 import towerdefense.Entity.tower.NormalTower;
+import towerdefense.Entity.tower.RocketTower;
 import towerdefense.Entity.tower.SniperTower;
 import towerdefense.Player;
 
@@ -47,6 +48,8 @@ public class Menu {
 
 
         addMenuItem(new ItemTower( new SniperTower(),MAP_WIDTH+1,0));
+
+        addMenuItem(new ItemTower( new RocketTower(),MAP_WIDTH,1));
 
 
         buttonList.add(ButtonStart.Instance());

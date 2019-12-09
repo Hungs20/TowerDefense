@@ -20,6 +20,7 @@ public class config {
     public static final int NUM_ENEMY = 12;
     public static final int SPEED_NORMAL_TOWER = 20;
     public static final int SPEED_SNIPER_TOWER = 20;
+    public static final int SPEED_ROCKET_TOWER = 30;
 
     public static final int SCREEN_WIDTH = TILE_SIZE * MAP_WIDTH + TILE_SIZE * MENU_WIDTH;
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAP_HEIGHT;
