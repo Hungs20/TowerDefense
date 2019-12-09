@@ -4,10 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import towerdefense.Animation;
-import towerdefense.GameEntity;
-import towerdefense.Player;
-import towerdefense.Point;
+import towerdefense.*;
 
 import java.util.List;
 
@@ -22,11 +19,8 @@ public abstract class Enemy extends GameEntity {
     private int armor;
     private Image gunImg;
     private int gunRotation;
-    private ImageView explosion = new ImageView();
 
-    public ImageView getExplosion() {
-        return explosion;
-    }
+
 
     public abstract double getMaxHealth();
 

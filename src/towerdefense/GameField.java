@@ -28,6 +28,7 @@ public class GameField {
 
     public static List<Land> landList = new ArrayList<>();
     public static List<Road> roadList = new ArrayList<>();
+
     public static Spawner spawner = new Spawner(0,1);
     public static Target target = new Target(MAP_WIDTH - 1, MAP_HEIGHT - 1);
     public static List<TitleMap> otherTileList = new ArrayList<>();

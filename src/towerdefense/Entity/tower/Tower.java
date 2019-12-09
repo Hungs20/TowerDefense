@@ -1,5 +1,7 @@
 package towerdefense.Entity.tower;
 
+import javafx.animation.Animation;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import towerdefense.Entity.Bullet;
 import towerdefense.Entity.enemy.Enemy;
 import towerdefense.Entity.menu.Button.SellButton;
@@ -20,6 +23,7 @@ import java.util.List;
 import towerdefense.*;
 import towerdefense.Point;
 import towerdefense.Sound.GameSound;
+import towerdefense.Sound.Sound;
 
 import static towerdefense.GameStage.infoLable;
 import static towerdefense.config.*;
@@ -304,15 +308,21 @@ public abstract class Tower extends GameEntity  {
                         Player.Instance().setCoin(Player.Instance().getCoin()+enemy.getReward());
                         GameField.enemyList.remove(enemy);
 
-                        ///Animation explosion
-
-                        enemy.getExplosion().setX(enemy.getX());
-                        enemy.getExplosion().setY(enemy.getY());
-                        Animation animation = new Animation(enemy.getExplosion(), new Image(pathImg + "exp.png"), 4, 4, 16, 64, 64, 60);
-                        root.getChildren().add(enemy.getExplosion());
-                        animation.start();
-
-                           // if (root.getChildren().indexOf(enemy.getExplosion()) >= 0) root.getChildren().remove(enemy.getExplosion());
+                        ///Explosion animation
+                        Sound expsound = new Sound("src/towerdefense/data/exp.mp3");
+                        expsound.play();
+                        ImageView explosion = new ImageView();
+                        explosion.setViewport(new Rectangle2D(64, 64, 64, 64));
+                        explosion.setImage(new Image(pathImg + "exp.png"));
+                        explosion.setX(enemy.getX());
+                        explosion.setY(enemy.getY());
+                        if(root.getChildren().indexOf(explosion) < 0) root.getChildren().add(explosion);
+                        Animation animation = new SpriteAnimation(explosion, Duration.millis(1000), 16, 4, 64, 64, 64, 64);
+                        animation.setCycleCount(3);
+                        animation.play();
+                        animation.setOnFinished(e->{
+                            root.getChildren().remove(explosion);
+                        });
 
                     }
                     bullet.setIsHas(false);

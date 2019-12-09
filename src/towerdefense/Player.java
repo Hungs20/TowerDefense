@@ -44,19 +44,19 @@ public class Player {
     public void showInfoPlayer(GraphicsContext gc){
         infoPlayer.setText(getInfo());
         infoPlayer.setLayoutY(1);
-        infoPlayer.setLayoutX((MAP_WIDTH - 1) * TILE_SIZE);
+        infoPlayer.setLayoutX((MAP_WIDTH - 2.5) * TILE_SIZE);
         infoPlayer.setId("player");
 
         Image coinIcon = new Image(pathImg + "money.png");
-        gc.drawImage(coinIcon, (MAP_WIDTH - 1.5) * TILE_SIZE, 0);
+        gc.drawImage(coinIcon, (MAP_WIDTH - 3) * TILE_SIZE, 0);
 
         Image heart = new Image(pathImg + "heart.png");
         Image heart_die = new Image(pathImg + "heart-die.png");
         for(int i = 0; i < NUM_HEART; i++){
-            gc.drawImage(heart_die, (MAP_WIDTH - 2) * TILE_SIZE  - i * heart_die.getWidth(), 0);
+            gc.drawImage(heart_die, (MAP_WIDTH - 4) * TILE_SIZE  - i * heart_die.getWidth(), 0);
         }
         for(int i = 0; i < lifes; i++){
-            gc.drawImage(heart, (MAP_WIDTH - 2) * TILE_SIZE  - i * heart.getWidth(), 0);
+            gc.drawImage(heart, (MAP_WIDTH - 4) * TILE_SIZE  - i * heart.getWidth(), 0);
         }
         if(root.getChildren().indexOf(infoPlayer) < 0) root.getChildren().addAll(infoPlayer);
     }
