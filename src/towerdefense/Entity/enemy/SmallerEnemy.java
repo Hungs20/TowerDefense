@@ -20,7 +20,10 @@ public class SmallerEnemy extends Enemy {
         this.setImg(new Image(pathImg + "towerDefense_tile245.png"));
        // this.setGunImg(new Image(pathImg + "towerDefense_tile292.png"));
     }
-
+    @Override
+    public String toString(){
+        return "SmallerEnemy";
+    }
     @Override
     public double getMaxHealth() {
         return HEALTH;

@@ -15,11 +15,15 @@ public class LevelPanel {
     private Button hardButton = new Button();
     private Button backButton = new Button();
     private ImageView background = new ImageView();
+    private ImageView panelBg = new ImageView();
     private Label title = new Label();
     private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public LevelPanel(){
 
         background.setImage(new Image(pathImg + "levelPanel.png"));
+        panelBg.setImage(new Image(pathImg + "panel.png"));
+        panelBg.setX(SCREEN_WIDTH/2 - 120);
+        panelBg.setY(SCREEN_HEIGHT/5);
 
         title.setText("CHOOSE LEVEL");
         title.setLayoutX(SCREEN_WIDTH/3);
@@ -48,6 +52,8 @@ public class LevelPanel {
     }
     public void clear(){
         if(root.getChildren().indexOf(background) >= 0) root.getChildren().remove(background);
+
+        if(root.getChildren().indexOf(panelBg) >= 0) root.getChildren().remove(panelBg);
         if(root.getChildren().indexOf(title) >= 0) root.getChildren().remove(title);
         if(root.getChildren().indexOf(easyButton) >= 0) root.getChildren().remove(easyButton);
         if(root.getChildren().indexOf(normalButton) >= 0) root.getChildren().remove(normalButton);
@@ -57,6 +63,7 @@ public class LevelPanel {
     public void render(){
 
         if(root.getChildren().indexOf(background) < 0) root.getChildren().add(background);
+        if(root.getChildren().indexOf(panelBg) < 0) root.getChildren().add(panelBg);
         if(root.getChildren().indexOf(title) < 0) root.getChildren().add(title);
         if(root.getChildren().indexOf(easyButton) < 0) root.getChildren().add(easyButton);
         if(root.getChildren().indexOf(normalButton) < 0) root.getChildren().add(normalButton);

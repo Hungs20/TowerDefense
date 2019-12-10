@@ -11,7 +11,7 @@ import static towerdefense.GameField.enemyList;
 
 public class Bullet extends GameEntity {
     private int damage;
-    private int speed = 40;
+    private int speed = 10;
     private double maxDistance;
     private double distance;
     private double angle;

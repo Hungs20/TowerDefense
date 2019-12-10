@@ -1,18 +1,12 @@
 package towerdefense.Entity.menu;
 
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import towerdefense.Entity.menu.Button.Button;
 import towerdefense.Entity.menu.Button.ButtonGameOver;
 import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Button.ItemTower;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.SniperTower;
-import towerdefense.Player;
+import towerdefense.Entity.tower.MachineGunTower;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +40,9 @@ public class Menu {
         addMenuItem(new ItemTower(new NormalTower(),MAP_WIDTH,0));
 
 
-        addMenuItem(new ItemTower( new SniperTower(),MAP_WIDTH+1,0));
+        addMenuItem(new ItemTower( new MachineGunTower(),MAP_WIDTH+1,0));
+
+        addMenuItem(new ItemTower( new SniperTower(),MAP_WIDTH,1));
 
 
         buttonList.add(ButtonStart.Instance());

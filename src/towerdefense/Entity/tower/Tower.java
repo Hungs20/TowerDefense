@@ -44,9 +44,18 @@ public abstract class Tower extends GameEntity  {
     private Label info = new Label();
     private double angle = 0;
     private List<Bullet> bulletList = new ArrayList<>();
+    private List<Enemy> listEnemyType = new ArrayList<>();
+
+    public List<Enemy> getListEnemyType() {
+        return listEnemyType;
+    }
+
 
     public ImageView getImgView() {
         return imgView;
+    }
+    public void setImgView(ImageView imgView){
+        this.imgView = imgView;
     }
 
     public List<Bullet> getBulletList() {
@@ -217,12 +226,12 @@ public abstract class Tower extends GameEntity  {
         remove();
     }
     public void upgrade(){
-        if(level >= 3) return;
+        if(level >= MAX_LEVEL_TOWER) return;
         if(Player.Instance().getCoin() < 70 * this.price / 100) return;
         this.level++;
-        this.damage = this.damage + this.level * this.damage / 5;
-        this.radius = this.radius + this.level * this.radius / 5;
-        this.speed = this.speed + this.level * this.speed / 5;
+        this.damage = this.damage + this.level * this.damage / 10;
+        this.radius = this.radius + this.level * this.radius / 10;
+        this.speed = this.speed + this.level * this.speed / 10;
         Player.Instance().setCoin(Player.Instance().getCoin() - 70* this.price / 100);
         this.price = this.price + 70 * this.price / 100;
 
@@ -231,14 +240,13 @@ public abstract class Tower extends GameEntity  {
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeOval(this.getX() + this.bgImg.getWidth()/2 - radius, this.getY() + this.bgImg.getHeight()/2 - radius, radius*2, radius*2);
-
-
     }
 
     public void remove(){
         root.getChildren().remove(this.getImgView());
         GameField.towerList.remove(this);
     }
+
     @Override
     public void render(GraphicsContext gc) {
         if(isClick){
@@ -254,8 +262,17 @@ public abstract class Tower extends GameEntity  {
                 isClick=!isClick;
                 if(isClick)
                 {
+                    for(int i = 0; i < GameField.towerList.size(); i++){
+                        if(this != GameField.towerList.get(i)){
+                            GameField.towerList.get(i).isClick = false;
+                            GameField.towerList.get(i).sellButton.hide();
+                            GameField.towerList.get(i).upgradeButton.hide();
+                            Menu.getInstance().removeButton(GameField.getTowerList().get(i).sellButton);
+                            Menu.getInstance().removeButton(GameField.getTowerList().get(i).upgradeButton);
+                        }
+                    }
                     Menu.getInstance().addButton(sellButton);
-                    if(level < 3) Menu.getInstance().addButton(upgradeButton);
+                    if(level < MAX_LEVEL_TOWER) Menu.getInstance().addButton(upgradeButton);
                 }else {
                     sellButton.hide();
                     upgradeButton.hide();
@@ -284,7 +301,16 @@ public abstract class Tower extends GameEntity  {
 
             double distance = enemyPoint.getDistance(towerPoint);
             if(distance <= this.getRadius()){
-                if(this.getSpeed() <= 0) {
+                boolean isShot = false;
+                for(int enemyType = 0; enemyType < listEnemyType.size(); enemyType++){
+                    Enemy type = listEnemyType.get(enemyType);
+                    System.out.println(type.toString() + " " + enemies.get(i).toString());
+                    if(enemies.get(i).toString().equals(type.toString())) {
+                        isShot = true;
+                        break;
+                    }
+                }
+                if(this.getSpeed() <= 0 && isShot) {
                     setAngle(_angle + 90);
                     Bullet _bullet = this.createBullet();
                     bullets.add(_bullet);
@@ -308,6 +334,7 @@ public abstract class Tower extends GameEntity  {
                         Player.Instance().setCoin(Player.Instance().getCoin()+enemy.getReward());
                         GameField.enemyList.remove(enemy);
 
+
                         ///Explosion animation
                         Sound expsound = new Sound("src/towerdefense/data/exp.mp3");
                         expsound.play();
@@ -325,6 +352,7 @@ public abstract class Tower extends GameEntity  {
                         });
 
                     }
+
                     bullet.setIsHas(false);
                 }
             }

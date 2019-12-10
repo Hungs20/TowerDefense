@@ -20,7 +20,10 @@ public class TankerEnemy extends Enemy {
         this.setImg(new Image(pathImg + "towerDefense_tile269.png"));
         this.setGunImg(new Image(pathImg + "towerDefense_tile292.png"));
     }
-
+    @Override
+    public String toString(){
+        return "TankerEnemy";
+    }
     @Override
     public double getMaxHealth() {
         return HEALTH;

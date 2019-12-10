@@ -25,7 +25,10 @@ public class NormalEnemy extends Enemy {
         this.setGunImg(new Image(pathImg + "towerDefense_tile291.png"));
     }
 
-
+    @Override
+    public String toString(){
+        return "NormalEnemy";
+    }
     @Override
     public double getMaxHealth() {
         return HEALTH;

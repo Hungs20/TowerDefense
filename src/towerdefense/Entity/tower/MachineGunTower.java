@@ -2,33 +2,35 @@ package towerdefense.Entity.tower;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import towerdefense.Entity.enemy.BossEnemy;
 import towerdefense.Entity.enemy.NormalEnemy;
 import towerdefense.Entity.enemy.SmallerEnemy;
 import towerdefense.Entity.enemy.TankerEnemy;
 
-import static towerdefense.config.*;
+import static towerdefense.config.SPEED_MACHINE_TOWER;
 import static towerdefense.config.pathImg;
 
-public class SniperTower extends Tower {
+public class MachineGunTower extends Tower {
 
-    public SniperTower(){
-        this.setSpeed(SPEED_SNIPER_TOWER);
-        this.setRadius(130);
-        this.setDamage(120);
-        this.setPrice(24);
-        this.setName("Sniper Tower");
+    public MachineGunTower(){
+        this.setSpeed(SPEED_MACHINE_TOWER);
+        this.setRadius(200);
+        this.setDamage(105);
+        this.setPrice(20);
+        this.setName("MachineGun Tower");
         this.setLevel(0);
-        this.setImg(new Image(pathImg + "towerDefense_tile203.png"));
+        this.setImg(new Image(pathImg + "towerDefense_tile250.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile295.png"));
-        this.getListEnemyType().add(new BossEnemy());
+        this.getListEnemyType().add(new NormalEnemy());
+        this.getListEnemyType().add(new SmallerEnemy());
+        this.getListEnemyType().add(new TankerEnemy());
     }
+
     @Override
     public void resetSpeed() {
-        this.setSpeed(SPEED_SNIPER_TOWER);
+        this.setSpeed(SPEED_MACHINE_TOWER);
     }
+
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
@@ -37,29 +39,21 @@ public class SniperTower extends Tower {
     @Override
     public void update() {
         super.update();
-        if(this.getSpeed() <= 0){
-
-        }
     }
 
-    @Override
     public void upgrade(){
         super.upgrade();
         if(this.getLevel() == 2) {
-            this.setImg(new Image(pathImg + "towerDefense_tile204.png"));
-            this.setBulletImg(new Image(pathImg + "towerDefense_tile251.png"));
+            this.setBulletImg(new Image(pathImg + "towerDefense_tile296.png"));
             this.setBgImg(new Image(pathImg + "towerDefense_tile181.png"));
         }
         if(this.getLevel() == 3) {
-            this.setImg(new Image(pathImg + "towerDefense_tile205.png"));
-            this.setBulletImg(new Image(pathImg + "towerDefense_tile251.png"));
+            this.setBulletImg(new Image(pathImg + "towerDefense_tile297.png"));
             this.setBgImg(new Image(pathImg + "towerDefense_tile182.png"));
         }
         if(this.getLevel() == 4) {
-            this.setImg(new Image(pathImg + "towerDefense_tile206.png"));
-            this.setBulletImg(new Image(pathImg + "towerDefense_tile252.png"));
+            this.setBulletImg(new Image(pathImg + "towerDefense_tile298.png"));
             this.setBgImg(new Image(pathImg + "towerDefense_tile183.png"));
         }
-        this.getImgView().setImage(this.getImg());
     }
 }

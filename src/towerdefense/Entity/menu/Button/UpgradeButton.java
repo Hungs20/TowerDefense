@@ -21,7 +21,7 @@ public class UpgradeButton extends Button{
     @Override
     public void actionClicked(MouseEvent event) {
         tower.upgrade() ;
-        if(tower.getLevel() >= 3) {
+        if(tower.getLevel() >= MAX_LEVEL_TOWER) {
             hide();
             Menu.getInstance().removeButton(this);
         }

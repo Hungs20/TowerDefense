@@ -17,9 +17,16 @@ public class StartMenu {
     private Button settingButton = new Button();
     private Button helpButton = new Button();
     private ImageView background = new ImageView();
+
+    private ImageView panelBg = new ImageView();
     private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public StartMenu(){
         background.setImage(new Image(pathImg + "background.png"));
+
+        panelBg.setImage(new Image(pathImg + "panel.png"));
+        panelBg.setX(SCREEN_WIDTH/2 - 120);
+        panelBg.setY(SCREEN_HEIGHT/5);
+        panelBg.setOpacity(0.7);
 
         startButton.setText("Play");
         startButton.setLayoutX(SCREEN_WIDTH/2 - 50);
@@ -39,6 +46,7 @@ public class StartMenu {
     }
     public void render(){
         if(root.getChildren().indexOf(background) < 0) root.getChildren().add(background);
+        if(root.getChildren().indexOf(panelBg) < 0) root.getChildren().add(panelBg);
         if(root.getChildren().indexOf(startButton) < 0) root.getChildren().add(startButton);
         if(root.getChildren().indexOf(settingButton) < 0) root.getChildren().add(settingButton);
         if(root.getChildren().indexOf(helpButton) < 0) root.getChildren().add(helpButton);
@@ -46,6 +54,7 @@ public class StartMenu {
     }
     public void clearButton(){
         if(root.getChildren().indexOf(background) >= 0) root.getChildren().remove(background);
+        if(root.getChildren().indexOf(panelBg) >= 0) root.getChildren().remove(panelBg);
         if(root.getChildren().indexOf(startButton) >= 0) root.getChildren().remove(startButton);
         if(root.getChildren().indexOf(helpButton) >= 0) root.getChildren().remove(helpButton);
         if(root.getChildren().indexOf(settingButton) >= 0) root.getChildren().remove(settingButton);

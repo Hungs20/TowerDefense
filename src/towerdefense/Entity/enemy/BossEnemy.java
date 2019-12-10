@@ -30,7 +30,10 @@ public class BossEnemy extends Enemy {
     public double getMaxHealth() {
         return HEALTH;
     }
-
+    @Override
+    public String toString(){
+        return "BossEnemy";
+    }
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);

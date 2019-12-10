@@ -1,19 +1,15 @@
 package towerdefense.Entity.menu.Button;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.NormalTower;
 import towerdefense.Entity.tower.SniperTower;
+import towerdefense.Entity.tower.MachineGunTower;
 import towerdefense.Entity.tower.Tower;
-import towerdefense.GameMap.Land;
 
 
-import static towerdefense.GameField.landList;
-import static towerdefense.GameField.roadList;
 import static towerdefense.config.*;
 
 public class ItemTower extends Button {
@@ -79,8 +75,8 @@ public class ItemTower extends Button {
             {
                 Tower newTower = tower;
                 if(tower instanceof NormalTower) newTower = new NormalTower();
+                if(tower instanceof MachineGunTower) newTower = new MachineGunTower();
                 if(tower instanceof SniperTower) newTower = new SniperTower();
-
                 newTower.buy((int)event1.getX()/TILE_SIZE,(int)event1.getY()/TILE_SIZE);
                 root.getChildren().remove(imgView);
                 root.getChildren().remove(rangle);
