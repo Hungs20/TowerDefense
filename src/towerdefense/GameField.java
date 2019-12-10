@@ -1,8 +1,9 @@
 package towerdefense;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import towerdefense.Entity.enemy.Enemy;
-import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.tower.Tower;
 import towerdefense.GameMap.*;
@@ -21,7 +22,7 @@ public class GameField {
     }
 
     private GraphicsContext gc;
-
+    ImageView iconPause = new ImageView(new Image(pathImg + "pause.png"));
 
     public static List<Enemy> enemyList = new ArrayList<>();
     public static List<Tower> towerList = new ArrayList<>();
@@ -29,8 +30,8 @@ public class GameField {
     public static List<Land> landList = new ArrayList<>();
     public static List<Road> roadList = new ArrayList<>();
 
-    public static Spawner spawner = new Spawner(0,1);
-    public static Target target = new Target(MAP_WIDTH - 1, MAP_HEIGHT - 1);
+    public static Spawner spawner = new Spawner();
+    public static Target target = new Target();
     public static List<TitleMap> otherTileList = new ArrayList<>();
 
 
@@ -44,6 +45,11 @@ public class GameField {
         Map.Instance().update();
         enemyList.forEach(GameEntity::update);
         towerList.forEach(GameEntity::update);
+        iconPause.setOnMouseClicked(eventPause ->{
+            isPlay = !isPlay;
+            if(isPlay) iconPause.setImage(new Image(pathImg + "pause.png"));
+            else iconPause.setImage(new Image(pathImg + "play.png"));
+        });
     }
 
     public void render() {
@@ -52,6 +58,12 @@ public class GameField {
         towerList.forEach(g -> g.render(gc));
         Menu.getInstance().showMenu();
         Player.Instance().showInfoPlayer(gc);
+
+        //icon pause
+
+        iconPause.setX(35);iconPause.setY(0);
+        if(root.getChildren().indexOf(iconPause) < 0) root.getChildren().add(iconPause);
+
     }
 
 
@@ -62,10 +74,15 @@ public class GameField {
 
     public void newGame()
     {
+        isPlay = true;
+        iconPause.setImage(new Image(pathImg + "pause.png"));
+        spawner = new Spawner();
+        target = new Target();
+        Map.Instance().createNewMap();
         Player.Instance().newGame();
-        ButtonStart.Instance().setStart(false);
         enemyList.clear();
         towerList.forEach(g->root.getChildren().remove(g.getImgView()));
         towerList.clear();
+        Menu.getInstance().clearAll();
     }
 }

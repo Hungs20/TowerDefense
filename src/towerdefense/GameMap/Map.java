@@ -156,11 +156,43 @@ public class Map {
         Collections.reverse(roadList);
 
     }
-    private Map(){
-
+    public void createEasyMap(){
         for(int i = 0; i < MAP_HEIGHT; i++) for(int j = 0; j < MAP_WIDTH; j++) mapArr[i][j] = (int)((Math.random() * 100) * (Math.random() * 100)) + 1;
         BFS_CreateRandomMap();
-       // Create2Land();
+    }
+    public void createNormalMap(){
+
+        int u = (int)(Math.random() * MAP_WIDTH/2) + 3;
+        for(int i = spawner.getI(); i <= u; i++){
+            mapArr[spawner.getJ()][i] = ROAD;
+            roadList.add(new Road(i, spawner.getJ()));
+        }
+        for(int i = spawner.getJ(); i <= target.getJ(); i++){
+            mapArr[i][u] = ROAD;
+            roadList.add(new Road(u,i));
+        }
+        for(int i = u + 1; i <= target.getI(); i++){
+            mapArr[target.getJ()][i] = ROAD;
+            roadList.add(new Road(i, target.getJ()));
+        }
+
+    }
+    public void createHardMap(){
+        for(int i = spawner.getI(); i <= target.getI(); i++){
+            mapArr[spawner.getJ()][i] = ROAD;
+            roadList.add(new Road(i, spawner.getJ()));
+        }
+    }
+    public void createNewMap(){
+
+        roadList.clear();
+        landList.clear();
+        otherTileList.clear();
+        for(int i = 0; i < MAP_HEIGHT; i++) for(int j = 0; j < MAP_WIDTH; j++) mapArr[i][j] = LAND;
+        if(levelMap == 0) createEasyMap();
+        else if(levelMap == 1) createNormalMap();
+        else createHardMap();
+         // Create2Land();
         int numOtherTile = (int)(Math.random() * 10) + 5;
         while (numOtherTile > 0){
             int i = (int)(Math.random() * (MAP_WIDTH - 1));
@@ -178,6 +210,9 @@ public class Map {
                 if(mapArr[i][j] == LAND) landList.add(new Land(j, i));
             }
         }
+    }
+    private Map(){
+        createNewMap();
     }
     public void render(GraphicsContext gc){
         landList.forEach(g ->g.render(gc));

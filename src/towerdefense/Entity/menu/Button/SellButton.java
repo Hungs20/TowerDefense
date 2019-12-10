@@ -14,7 +14,7 @@ public class SellButton extends Button{
     public SellButton(Tower tower){
         this.setImage(new Image(pathImg + "sellButton.png"));
         this.setX(MAP_WIDTH);
-        this.setY(4);
+        this.setY(5);
         this.tower = tower;
     }
 

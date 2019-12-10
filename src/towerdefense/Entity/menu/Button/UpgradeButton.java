@@ -14,7 +14,7 @@ public class UpgradeButton extends Button{
     public UpgradeButton(Tower tower){
         this.setImage(new Image(pathImg + "upgradeButton.png"));
         this.setX(MAP_WIDTH + 1);
-        this.setY(4);
+        this.setY(5);
         this.tower = tower;
     }
 

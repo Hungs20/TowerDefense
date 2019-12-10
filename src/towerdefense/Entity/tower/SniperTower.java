@@ -7,6 +7,7 @@ import towerdefense.Entity.enemy.BossEnemy;
 import towerdefense.Entity.enemy.NormalEnemy;
 import towerdefense.Entity.enemy.SmallerEnemy;
 import towerdefense.Entity.enemy.TankerEnemy;
+import towerdefense.Sound.Sound;
 
 import static towerdefense.config.*;
 import static towerdefense.config.pathImg;
@@ -16,14 +17,15 @@ public class SniperTower extends Tower {
     public SniperTower(){
         this.setSpeed(SPEED_SNIPER_TOWER);
         this.setRadius(130);
-        this.setDamage(120);
-        this.setPrice(24);
-        this.setName("Sniper Tower");
+        this.setDamage(80);
+        this.setPrice(40);
+        this.setName("Sniper");
         this.setLevel(0);
         this.setImg(new Image(pathImg + "towerDefense_tile203.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
         this.setBulletImg(new Image(pathImg + "towerDefense_tile295.png"));
         this.getListEnemyType().add(new BossEnemy());
+        this.setShottingSound(new Sound("src/towerdefense/Sound/sounds/4_t1shot.mp3"));
     }
     @Override
     public void resetSpeed() {

@@ -3,6 +3,7 @@ package towerdefense;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -35,7 +36,7 @@ public class config {
     // config game
     public static int levelMap = 0;
     public static boolean isSound = true;
-
+    public static boolean isPlay = true;
 
     /*
     public static final String[][] MAP_SPRITES = new String[][] {

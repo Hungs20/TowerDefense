@@ -1,11 +1,9 @@
 package towerdefense.Entity.menu.Button;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import towerdefense.Sound.GameSound;
+import towerdefense.Sound.Sound;
 
 import static towerdefense.config.*;
 
@@ -14,7 +12,7 @@ public abstract class Button {
     private ImageView buttonImg;
     private int x;
     private int y;
-
+    private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public ImageView getButtonImg() {
         return buttonImg;
     }
@@ -49,14 +47,14 @@ public abstract class Button {
 
     public void isClicked(){
         buttonImg.setOnMouseClicked(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             actionClicked(event);
         });
     }
 
     public void isPressed(){
         buttonImg.setOnMousePressed(event -> {
-            GameSound.Instance().clickSound();
+            clickSound.play();
             actionPressed(event);
         });
     }

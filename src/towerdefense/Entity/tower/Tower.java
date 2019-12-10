@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import towerdefense.Entity.Bullet;
@@ -22,10 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import towerdefense.*;
 import towerdefense.Point;
-import towerdefense.Sound.GameSound;
 import towerdefense.Sound.Sound;
 
 import static towerdefense.GameStage.infoLable;
+import static towerdefense.GameStage.nameTower;
 import static towerdefense.config.*;
 
 public abstract class Tower extends GameEntity  {
@@ -43,8 +42,14 @@ public abstract class Tower extends GameEntity  {
     private UpgradeButton upgradeButton = new UpgradeButton(this);
     private Label info = new Label();
     private double angle = 0;
+    private Sound turretBuildSound = new Sound("src/towerdefense/Sound/sounds/3_turretbuild.mp3");
+    private Sound shottingSound = new Sound("src/towerdefense/Sound/sounds/4_t1shot.mp3");
     private List<Bullet> bulletList = new ArrayList<>();
     private List<Enemy> listEnemyType = new ArrayList<>();
+
+    public void setShottingSound(Sound shottingSound) {
+        this.shottingSound = shottingSound;
+    }
 
     public List<Enemy> getListEnemyType() {
         return listEnemyType;
@@ -184,7 +189,6 @@ public abstract class Tower extends GameEntity  {
 
     public String getInfo(){
         String info = "";
-        info += "Name : " + name + "\n";
         info += "Dame : " + damage + "\n";
         info += "Range : " + radius + "\n";
         if(level > 0) info += "Level : " + level + "\n";
@@ -196,12 +200,21 @@ public abstract class Tower extends GameEntity  {
         return info;
     }
     public void showInfo(){
+
+        nameTower.setText(this.name);
+        nameTower.setLayoutX((MAP_WIDTH + 0.1) * TILE_SIZE);
+        nameTower.setLayoutY(1.5 * TILE_SIZE);
+        nameTower.setId("nameTower");
+
+        for(int i = 0; i < listEnemyType.size(); i++){
+            GameStage.gc.drawImage(listEnemyType.get(i).getImg(), (MAP_WIDTH + i) * TILE_SIZE, 2*TILE_SIZE);
+        }
+
         infoLable.setText(getInfo());
         infoLable.setLayoutX((MAP_WIDTH + 0.2) * TILE_SIZE);
-        infoLable.setLayoutY(2 * TILE_SIZE);
-        infoLable.setVisible(true);
-        infoLable.setTextFill(Color.BLUE);
-        infoLable.setFont(Font.font("Consolas", 15));
+        infoLable.setLayoutY(3 * TILE_SIZE);
+        infoLable.setId("infoTower");
+
     }
 
 
@@ -214,7 +227,7 @@ public abstract class Tower extends GameEntity  {
             this.setJ(j);
             this.level = 1;
             GameField.getTowerList().add(this);
-            GameSound.Instance().TurretBuildSound();
+            turretBuildSound.play();
             Map.Instance().setOnLand(i, j, 1);
             return true;
         }
@@ -304,7 +317,6 @@ public abstract class Tower extends GameEntity  {
                 boolean isShot = false;
                 for(int enemyType = 0; enemyType < listEnemyType.size(); enemyType++){
                     Enemy type = listEnemyType.get(enemyType);
-                    System.out.println(type.toString() + " " + enemies.get(i).toString());
                     if(enemies.get(i).toString().equals(type.toString())) {
                         isShot = true;
                         break;
@@ -315,7 +327,7 @@ public abstract class Tower extends GameEntity  {
                     Bullet _bullet = this.createBullet();
                     bullets.add(_bullet);
                     resetSpeed();
-                    GameSound.Instance().shotingShound();
+                    shottingSound.play();
                 }
             }
         }

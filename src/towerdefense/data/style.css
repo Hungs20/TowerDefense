@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'Press Start 2P';
-    src: url('PressStart2P.ttf');
+    font-family: 'Karma Future';
+    src: url('karma_future.ttf');
 }
 
 .button {
 
-    -fx-font-family: "Press Start 2P";
+    -fx-font-family: "Karma Future";
     -fx-font-size: 20px;
     -fx-background-color: #ffee78;
     -fx-background-radius: 15px;
@@ -22,7 +22,7 @@
 }
 .button:hover {
     -fx-background-color: #1861ff;
-    -fx-text-fill: #eeffde;
+    -fx-text-fill: #0d100f;
 }
 .button:pressed {
     -fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 4);
@@ -32,7 +32,7 @@
 
 }
 .label {
-    -fx-font-family: "Press Start 2P";
+    -fx-font-family: "Karma Future";
     -fx-text-fill: white;
     -fx-padding: 5.0 10.0 5.0 10.0;
     -fx-font-weight: bold;
@@ -40,10 +40,9 @@
     -fx-effect:dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 ) ;
 }
 #helpPanel{
-    -fx-font-family: "Press Start 2P";
-    -fx-text-fill: white;
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
+    -fx-font-family: "Karma Future";
+    -fx-text-fill: #0d100f;
+    -fx-font-size: 20px;
 }
 #panel{
     -fx-background-color: #dffffd;
@@ -53,7 +52,7 @@
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 #levelPanel{
-    -fx-font-family: "Press Start 2P";
+    -fx-font-family: "Karma Future";
     -fx-font-size: 20px;
     -fx-background-color: #cbffa8;
     -fx-background-radius: 15px;
@@ -68,8 +67,8 @@
     -fx-effect: dropshadow(three-pass-box, #79ffc8, 10, 0, 0, 5);
 }
 #levelPanel:hover {
-    -fx-background-color: #ff1610;
-    -fx-text-fill: #eeffde;
+    -fx-background-color: #ff7656;
+    -fx-text-fill: #073946;
 }
 #levelPanel:pressed {
     -fx-effect: dropshadow(three-pass-box, #79ffc8, 10, 0, 0, 4);
@@ -77,12 +76,32 @@
 }
 
 #title{
-    -fx-font-family: "Press Start 2P";
-    -fx-text-fill: orange;
+    -fx-font-family: "Karma Future";
+    -fx-text-fill: #4d06ae;
     -fx-font-size: 40px;
 }
-#player{
-    -fx-font-family: "Press Start 2P";
-    -fx-font-size: 18px;
+#titleGameOver{
+    -fx-font-family: "Karma Future";
+    -fx-text-fill: #280002;
+    -fx-font-size: 50px;
+}
+#coinPlayer{
+    -fx-font-family: "Karma Future";
+    -fx-font-size: 23px;
     -fx-text-fill: yellow;
+}
+#levelPlayer{
+    -fx-font-family: "Karma Future";
+    -fx-font-size: 26px;
+    -fx-text-fill: #2f5bff;
+}
+#infoTower{
+    -fx-font-family: Consolas;
+    -fx-font-size: 16px;
+    -fx-text-fill: blue;
+}
+#nameTower{
+    -fx-font-size: 25px;
+    -fx-font-family: "Karma Future";
+    -fx-text-fill: #a2290b;
 }

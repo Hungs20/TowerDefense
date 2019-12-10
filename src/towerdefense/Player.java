@@ -12,14 +12,16 @@ import static towerdefense.config.*;
 
 public class Player {
     private final int NUM_HEART = 5;
+    private final int MAX_LEVEL = 20;
     private int level;
     private int coin;
     private int lifes;
 
     private Label infoPlayer = new Label();
+    private Label infoLevel = new Label();
     private static Player instance;
     private Player(){
-        level = 0;
+        level = 1;
         coin= 100;
         lifes = NUM_HEART;
     }
@@ -32,9 +34,9 @@ public class Player {
 
     public void newGame()
     {
-        level = 0;
-        coin= 100;
-        lifes = 5;
+        this.level = 1;
+        this.coin= 100;
+        this.lifes = 5;
     }
     public String getInfo(){
         String info = "";
@@ -43,9 +45,9 @@ public class Player {
     }
     public void showInfoPlayer(GraphicsContext gc){
         infoPlayer.setText(getInfo());
-        infoPlayer.setLayoutY(1);
+        infoPlayer.setLayoutY(0);
         infoPlayer.setLayoutX((MAP_WIDTH - 2.5) * TILE_SIZE);
-        infoPlayer.setId("player");
+        infoPlayer.setId("coinPlayer");
 
         Image coinIcon = new Image(pathImg + "money.png");
         gc.drawImage(coinIcon, (MAP_WIDTH - 3) * TILE_SIZE, 0);
@@ -59,6 +61,12 @@ public class Player {
             gc.drawImage(heart, (MAP_WIDTH - 4) * TILE_SIZE  - i * heart.getWidth(), 0);
         }
         if(root.getChildren().indexOf(infoPlayer) < 0) root.getChildren().addAll(infoPlayer);
+
+        infoLevel.setText("Level : " + String.valueOf(this.level) + " / " + String.valueOf(MAX_LEVEL));
+        infoLevel.setId("levelPlayer");
+        infoLevel.setLayoutX((MAP_WIDTH + MENU_WIDTH/4) * TILE_SIZE);
+        infoLevel.setLayoutY((MAP_HEIGHT - 2) * TILE_SIZE);
+        if(root.getChildren().indexOf(infoLevel) < 0) root.getChildren().addAll(infoLevel);
     }
 
     public int getLevel() {
@@ -83,5 +91,9 @@ public class Player {
 
     public void setLifes(int lifes) {
         this.lifes = lifes;
+    }
+
+    public int getMAX_LEVEL() {
+        return MAX_LEVEL;
     }
 }

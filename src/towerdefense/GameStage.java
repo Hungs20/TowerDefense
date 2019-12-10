@@ -3,51 +3,33 @@ package towerdefense;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import towerdefense.Entity.enemy.Enemy;
-import towerdefense.Entity.enemy.NormalEnemy;
-import towerdefense.Entity.menu.Button.ButtonStart;
 import towerdefense.Entity.menu.HelpPanel;
 import towerdefense.Entity.menu.LevelPanel;
-import towerdefense.Entity.menu.Menu;
 import towerdefense.Entity.menu.StartMenu;
-import towerdefense.Entity.tower.NormalTower;
-import towerdefense.Entity.tower.Tower;
-import towerdefense.GameMap.Spawner;
-import towerdefense.Sound.GameSound;
 import towerdefense.Sound.Sound;
 
-import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static towerdefense.config.*;
 
 public class GameStage extends Application {
 
-    private GraphicsContext gc;
+    public static GraphicsContext gc;
 
     public static MouseEvent event;
     private Scene scene;
     public static Label infoLable;
+    public static Label nameTower;
     public static int choose;// 1 start 2
     private Sound bgSound = new Sound("src/towerdefense/Sound/sounds/8_music.mp3");
     @Override
@@ -61,7 +43,8 @@ public class GameStage extends Application {
         Canvas canvas = new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
         gc = canvas.getGraphicsContext2D();
         infoLable = new Label();
-        root.getChildren().addAll(canvas, infoLable);
+        nameTower = new Label();
+        root.getChildren().addAll(canvas, infoLable, nameTower);
 
         // Tao scene
          scene = new Scene(root);
@@ -80,11 +63,10 @@ public class GameStage extends Application {
         stage.setScene(scene);
         stage.show();
         GameField.getInstance().setGc(gc);
-        //GameSound.Instance().backgroundSound();
 
+        //icon sound
         ImageView iconSound = new ImageView(new Image(pathImg + "sound-off.png"));
         iconSound.setX(0);iconSound.setY(0);
-        //root.getChildren().add(iconSound);
 
         ///init menu
         StartMenu startMenu = new StartMenu();
@@ -93,9 +75,9 @@ public class GameStage extends Application {
 
         if(root.getChildren().indexOf(iconSound) < 0) root.getChildren().add(iconSound);
 
+
         iconSound.setOnMouseClicked(eventSound ->{
             isSound = !isSound;
-            System.out.println(isSound);
             if(isSound) iconSound.setImage(new Image(pathImg + "sound-off.png"));
             else iconSound.setImage(new Image(pathImg + "sound-on.png"));
         });
@@ -109,12 +91,11 @@ public class GameStage extends Application {
 
                 if(choose == START_MENU){
                     startMenu.render();
-                    startMenu.updatẹ();
+                    startMenu.update();
                 }
                 else if(choose == GAME_START) {
-                    stage.setMinWidth(SCREEN_WIDTH+150);
                     GameField.getInstance().render();
-                    GameField.getInstance().update();
+                    if(isPlay) GameField.getInstance().update();
                 }
                 else if(choose == HELP_PANEL){
                     helpPanel.render();
@@ -134,14 +115,11 @@ public class GameStage extends Application {
 
 
 
+
                 ///Play background sound
 
 
                 bgSound.playBackground();
-              /*  if(ButtonStart.Instance().isStart())
-                {
-
-                }*/
             }
         };
         timer.start();

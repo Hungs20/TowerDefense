@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import towerdefense.GameField;
 import towerdefense.GameStage;
 import towerdefense.Sound.Sound;
 
@@ -20,35 +21,39 @@ public class LevelPanel {
     private Sound clickSound = new Sound("src/towerdefense/Sound/sounds/7_click.mp3");
     public LevelPanel(){
 
-        background.setImage(new Image(pathImg + "levelPanel.png"));
+        background.setImage(new Image(pathImg + "background.png"));
+
         panelBg.setImage(new Image(pathImg + "panel.png"));
         panelBg.setX(SCREEN_WIDTH/2 - 120);
         panelBg.setY(SCREEN_HEIGHT/5);
+        panelBg.setOpacity(0.7);
+        panelBg.setFitHeight(400);
+        panelBg.setFitWidth(300);
 
-        title.setText("CHOOSE LEVEL");
-        title.setLayoutX(SCREEN_WIDTH/3);
-        title.setLayoutY(4);
+        title.setText("Choose Level");
+        title.setLayoutX(SCREEN_WIDTH/2 - 110);
+        title.setLayoutY(SCREEN_HEIGHT/5 + 20);
         title.setId("title");
 
 
         easyButton.setText("Easy");
-        easyButton.setLayoutX(SCREEN_WIDTH/2 - 50);
-        easyButton.setLayoutY(SCREEN_HEIGHT/4);
+        easyButton.setLayoutX(SCREEN_WIDTH/2 - 60);
+        easyButton.setLayoutY(SCREEN_HEIGHT/3 + 40);
         easyButton.setId("levelPanel");
 
         normalButton.setText("Normal");
-        normalButton.setLayoutX(SCREEN_WIDTH/2 - 50);
-        normalButton.setLayoutY(SCREEN_HEIGHT/4 + 80);
+        normalButton.setLayoutX(SCREEN_WIDTH/2 - 60);
+        normalButton.setLayoutY(SCREEN_HEIGHT/3 + 100);
         normalButton.setId("levelPanel");
 
         hardButton.setText("Hard");
-        hardButton.setLayoutX(SCREEN_WIDTH/2 - 50);
-        hardButton.setLayoutY(SCREEN_HEIGHT/4 + 160);
+        hardButton.setLayoutX(SCREEN_WIDTH/2 - 60);
+        hardButton.setLayoutY(SCREEN_HEIGHT/3 + 160);
         hardButton.setId("levelPanel");
 
         backButton.setText("Back");
         backButton.setLayoutX(SCREEN_WIDTH/2 - 20);
-        backButton.setLayoutY(SCREEN_HEIGHT/4 + 300);
+        backButton.setLayoutY(SCREEN_HEIGHT/3 + 250);
     }
     public void clear(){
         if(root.getChildren().indexOf(background) >= 0) root.getChildren().remove(background);
@@ -76,18 +81,21 @@ public class LevelPanel {
             clickSound.play();
             clear();
             levelMap = 0;
+            GameField.getInstance().newGame();
             GameStage.choose = GAME_START;
         });
         normalButton.setOnMouseClicked(event -> {
             clickSound.play();
             clear();
             levelMap = 1;
+            GameField.getInstance().newGame();
             GameStage.choose = GAME_START;
         });
         hardButton.setOnMouseClicked(event -> {
             clickSound.play();
             clear();
             levelMap = 2;
+            GameField.getInstance().newGame();
             GameStage.choose = GAME_START;
         });
         backButton.setOnMouseClicked(event -> {

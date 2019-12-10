@@ -17,6 +17,7 @@ import towerdefense.Entity.menu.Button.SellButton;
 import towerdefense.GameEntity;
 import towerdefense.GameField;
 import towerdefense.Point;
+import towerdefense.Sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,9 @@ public class NormalTower extends Tower {
     public NormalTower(){
         this.setSpeed(SPEED_NORMAL_TOWER);
         this.setRadius(150);
-        this.setDamage(10);
-        this.setPrice(15);
-        this.setName("Normal Tower");
+        this.setDamage(20);
+        this.setPrice(20);
+        this.setName("Normal");
         this.setLevel(0);
         this.setImg(new Image(pathImg + "towerDefense_tile249.png"));
         this.setBgImg(new Image(pathImg + "towerDefense_tile180.png"));
@@ -38,6 +39,7 @@ public class NormalTower extends Tower {
         this.getListEnemyType().add(new NormalEnemy());
         this.getListEnemyType().add(new SmallerEnemy());
         this.getListEnemyType().add(new TankerEnemy());
+        this.setShottingSound(new Sound("src/towerdefense/Sound/sounds/5_t4shot.mp3"));
     }
 
     @Override
